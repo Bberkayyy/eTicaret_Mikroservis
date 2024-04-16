@@ -3,6 +3,7 @@ using e_Ticaret.Catalog.Services.ProductDetailServices;
 using e_Ticaret.Catalog.Services.ProductImageServices;
 using e_Ticaret.Catalog.Services.ProductServices;
 using e_Ticaret.Catalog.Settings;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.Options;
 using System.Reflection;
 
@@ -24,6 +25,13 @@ public static class CatalogDependencies
         services.AddScoped<IProductImageService, ProductImageManager>();
 
         services.AddAutoMapper(Assembly.GetExecutingAssembly());
+
+        services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(opt =>
+        {
+            opt.Authority = configuration["IdentityServerUrl"];
+            opt.RequireHttpsMetadata = false;
+            opt.Audience = "CatalogResource";
+        });
 
         return services;
     }

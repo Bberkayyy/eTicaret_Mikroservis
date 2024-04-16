@@ -2,10 +2,12 @@
 using e_Ticaret.Order.Application.Features.CQRS.Handlers.AddressHandlers;
 using e_Ticaret.Order.Application.Features.CQRS.Queries.AddressQueries;
 using e_Ticaret.Order.Application.Features.CQRS.Results.AddressResults;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace e_Ticaret.Order.WebApi.Controllers;
 
+[Authorize]
 [Route("api/addresses")]
 [ApiController]
 public class AddressesController : ControllerBase

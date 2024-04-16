@@ -21,13 +21,24 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastru
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Presentation", "Presentation", "{9404E55E-FDA1-4EF1-A357-1EFB47C7B59A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "e_Ticaret.Order.Domain", "Services\Order\Core\e_Ticaret.Order.Domain\e_Ticaret.Order.Domain.csproj", "{EFC2ADF6-9550-45AE-B560-BA5AD791FFC8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "e_Ticaret.Order.Domain", "Services\Order\Core\e_Ticaret.Order.Domain\e_Ticaret.Order.Domain.csproj", "{EFC2ADF6-9550-45AE-B560-BA5AD791FFC8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "e_Ticaret.Order.Application", "Services\Order\Core\e_Ticaret.Order.Application\e_Ticaret.Order.Application.csproj", "{0B4B26FC-9440-4555-AC7F-269F3FF87D06}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "e_Ticaret.Order.Application", "Services\Order\Core\e_Ticaret.Order.Application\e_Ticaret.Order.Application.csproj", "{0B4B26FC-9440-4555-AC7F-269F3FF87D06}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "e_Ticaret.Order.Persistence", "Services\Order\Infrastructure\e_Ticaret.Order.Persistence\e_Ticaret.Order.Persistence.csproj", "{60F18237-DA62-4BA4-9B3A-4E31E81E1972}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "e_Ticaret.Order.Persistence", "Services\Order\Infrastructure\e_Ticaret.Order.Persistence\e_Ticaret.Order.Persistence.csproj", "{60F18237-DA62-4BA4-9B3A-4E31E81E1972}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "e_Ticaret.Order.WebApi", "Services\Order\Presentation\e_Ticaret.Order.WebApi\e_Ticaret.Order.WebApi.csproj", "{FD3068E4-8368-4F21-A2DF-150A3C587DBB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "e_Ticaret.Order.WebApi", "Services\Order\Presentation\e_Ticaret.Order.WebApi\e_Ticaret.Order.WebApi.csproj", "{FD3068E4-8368-4F21-A2DF-150A3C587DBB}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "IdentityServer", "IdentityServer", "{52DD9F6D-5D36-428A-9B5F-15F0B21F20E1}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "e_Ticaret.IdentityServer", "IdentityServer\e_Ticaret.IdentityServer\e_Ticaret.IdentityServer.csproj", "{708E6012-3E8B-4E97-B0F1-F4E624CA56F3}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Requirements", "Requirements", "{1FC4CBCD-9385-4C94-91BB-86C383D9A4D6}"
+	ProjectSection(SolutionItems) = preProject
+		PortainerCmd.txt = PortainerCmd.txt
+		IdentityServerErrorSolution.txt = IdentityServerErrorSolution.txt
+		PortNumbers.txt = PortNumbers.txt
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -59,6 +70,10 @@ Global
 		{FD3068E4-8368-4F21-A2DF-150A3C587DBB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FD3068E4-8368-4F21-A2DF-150A3C587DBB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FD3068E4-8368-4F21-A2DF-150A3C587DBB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{708E6012-3E8B-4E97-B0F1-F4E624CA56F3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{708E6012-3E8B-4E97-B0F1-F4E624CA56F3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{708E6012-3E8B-4E97-B0F1-F4E624CA56F3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{708E6012-3E8B-4E97-B0F1-F4E624CA56F3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -76,6 +91,7 @@ Global
 		{0B4B26FC-9440-4555-AC7F-269F3FF87D06} = {1ECBA2C4-8527-4E21-B4CD-9725E5E95EDE}
 		{60F18237-DA62-4BA4-9B3A-4E31E81E1972} = {EDFDA004-65C3-4A2D-892F-D4351BFD128F}
 		{FD3068E4-8368-4F21-A2DF-150A3C587DBB} = {9404E55E-FDA1-4EF1-A357-1EFB47C7B59A}
+		{708E6012-3E8B-4E97-B0F1-F4E624CA56F3} = {52DD9F6D-5D36-428A-9B5F-15F0B21F20E1}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C43193CF-3F29-4995-9148-4138B0A5CC55}

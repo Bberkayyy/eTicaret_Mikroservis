@@ -12,9 +12,9 @@
     "e_Ticaret.Order.WebApi": {
       "commandName": "Project",
       "dotnetRunMessages": true,
-      "launchBrowser": true,
+      "launchBrowser": false,
       "launchUrl": "swagger",
-      "applicationUrl": "https://localhost:7125;http://localhost:5165",
+      "applicationUrl": "https://localhost:7072",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }

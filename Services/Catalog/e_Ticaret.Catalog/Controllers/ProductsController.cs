@@ -1,10 +1,12 @@
 ﻿using e_Ticaret.Catalog.Dtos.ProductDtos;
 using e_Ticaret.Catalog.Services.ProductServices;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace e_Ticaret.Catalog.Controllers;
 
+[Authorize]
 [Route("api/products")]
 [ApiController]
 public class ProductsController : ControllerBase

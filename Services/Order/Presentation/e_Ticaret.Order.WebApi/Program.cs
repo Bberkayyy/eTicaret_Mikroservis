@@ -2,6 +2,7 @@ using e_Ticaret.Order.Application.Interfaces;
 using e_Ticaret.Order.Application.ServiceReigstrations;
 using e_Ticaret.Order.Persistence.Context;
 using e_Ticaret.Order.Persistence.Repositories;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,6 +11,12 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddOrderDependencies(builder.Configuration);
 builder.Services.AddDbContext<OrderContext>();
 builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(opt =>
+{
+    opt.Authority = builder.Configuration["IdentityServerUrl"];
+    opt.RequireHttpsMetadata = false;
+    opt.Audience = "OrderResource";
+});
 
 
 builder.Services.AddControllers();
@@ -28,6 +35,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();

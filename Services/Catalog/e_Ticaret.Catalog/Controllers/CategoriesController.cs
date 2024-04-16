@@ -1,10 +1,12 @@
 ﻿using e_Ticaret.Catalog.Dtos.CategoryDtos;
 using e_Ticaret.Catalog.Services.CategoryServices;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace e_Ticaret.Catalog.Controllers;
 
+[Authorize]
 [Route("api/categories")]
 [ApiController]
 public class CategoriesController : ControllerBase

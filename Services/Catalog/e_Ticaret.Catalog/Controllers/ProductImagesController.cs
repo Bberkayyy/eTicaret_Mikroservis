@@ -1,10 +1,12 @@
 ﻿using e_Ticaret.Catalog.Dtos.ProductImageDtos;
 using e_Ticaret.Catalog.Services.ProductImageServices;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace e_Ticaret.Catalog.Controllers;
 
+[Authorize]
 [Route("api/productimanges")]
 [ApiController]
 public class ProductImagesController : ControllerBase

@@ -2,10 +2,12 @@
 using e_Ticaret.Order.Application.Features.Mediator.Queries.OrderingQueries;
 using e_Ticaret.Order.Application.Features.Mediator.Results.OrderingResults;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace e_Ticaret.Order.WebApi.Controllers;
 
+[Authorize]
 [Route("api/orderings")]
 [ApiController]
 public class OrderingsController : ControllerBase

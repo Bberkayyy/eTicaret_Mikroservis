@@ -2,10 +2,12 @@
 using e_Ticaret.Order.Application.Features.CQRS.Handlers.OrderDetailHandlers;
 using e_Ticaret.Order.Application.Features.CQRS.Queries.OrderDetailQueries;
 using e_Ticaret.Order.Application.Features.CQRS.Results.OrderDetailResults;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace e_Ticaret.Order.WebApi.Controllers;
 
+[Authorize]
 [Route("api/orderdetails")]
 [ApiController]
 public class OrderDetailsController : ControllerBase

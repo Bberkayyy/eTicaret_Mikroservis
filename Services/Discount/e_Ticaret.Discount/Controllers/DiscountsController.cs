@@ -1,10 +1,12 @@
 ﻿using e_Ticaret.Discount.Dtos;
 using e_Ticaret.Discount.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace e_Ticaret.Discount.Controllers;
 
+[Authorize]
 [Route("api/discounts")]
 [ApiController]
 public class DiscountsController : ControllerBase
