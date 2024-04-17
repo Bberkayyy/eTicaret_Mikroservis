@@ -15,6 +15,7 @@ public static class Config
         new ApiResource("CatalogResource"){Scopes={"CatalogFullPermission","CatalogReadPermission"}},
         new ApiResource("DiscountResource"){Scopes={"DiscountFullPermission"}},
         new ApiResource("OrderResource"){Scopes={"OrderFullPermission"}},
+        new ApiResource("CargoResource"){Scopes={"CargoFullPermission"}},
         new ApiResource(IdentityServerConstants.LocalApi.ScopeName)
     };
     public static IEnumerable<IdentityResource> IdentityResources => new IdentityResource[]
@@ -29,6 +30,7 @@ public static class Config
         new ApiScope("CatalogReadPermission","Reading authority for catalog operations"),
         new ApiScope("DiscountFullPermission","Full authority for discount operations"),
         new ApiScope("OrderFullPermission","Full authority for order operations"),
+        new ApiScope("CargoFullPermission","Full authority for cargo operations"),
         new ApiScope(IdentityServerConstants.LocalApi.ScopeName)
     };
     public static IEnumerable<Client> Clients => new Client[]
@@ -55,7 +57,7 @@ public static class Config
             ClientName="e_Ticaret Admin User",
             AllowedGrantTypes=GrantTypes.ClientCredentials,
             ClientSecrets={new Secret("e_ticaretsecret".Sha256())},
-            AllowedScopes={ "CatalogFullPermission", "DiscountFullPermission", "OrderFullPermission","CatalogReadPermission",
+            AllowedScopes={ "CatalogFullPermission", "DiscountFullPermission", "OrderFullPermission","CatalogReadPermission","CargoFullPermission",
                 IdentityServerConstants.LocalApi.ScopeName,
                 IdentityServerConstants.StandardScopes.Email,
                 IdentityServerConstants.StandardScopes.OpenId,
