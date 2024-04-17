@@ -35,22 +35,26 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "e_Ticaret.IdentityServer", 
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Requirements", "Requirements", "{1FC4CBCD-9385-4C94-91BB-86C383D9A4D6}"
 	ProjectSection(SolutionItems) = preProject
-		PortainerCmd.txt = PortainerCmd.txt
 		IdentityServerErrorSolution.txt = IdentityServerErrorSolution.txt
+		PortainerCmd.txt = PortainerCmd.txt
 		PortNumbers.txt = PortNumbers.txt
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Cargo", "Cargo", "{FCDCEDD4-1F41-4336-8483-091DBD9571ED}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "e_Ticaret.Cargo.EntityLayer", "Services\Cargo\e_Ticaret.Cargo.EntityLayer\e_Ticaret.Cargo.EntityLayer.csproj", "{F1593A06-DD86-48B5-A091-84AA692CC63C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "e_Ticaret.Cargo.EntityLayer", "Services\Cargo\e_Ticaret.Cargo.EntityLayer\e_Ticaret.Cargo.EntityLayer.csproj", "{F1593A06-DD86-48B5-A091-84AA692CC63C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "e_Ticaret.Cargo.BusinessLayer", "Services\Cargo\e_Ticaret.Cargo.BusinessLayer\e_Ticaret.Cargo.BusinessLayer.csproj", "{606400F7-5944-4659-B9BB-F9AF7DCF6666}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "e_Ticaret.Cargo.BusinessLayer", "Services\Cargo\e_Ticaret.Cargo.BusinessLayer\e_Ticaret.Cargo.BusinessLayer.csproj", "{606400F7-5944-4659-B9BB-F9AF7DCF6666}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "e_Ticaret.Cargo.DataAccessLayer", "Services\Cargo\e_Ticaret.Cargo.DataAccessLayer\e_Ticaret.Cargo.DataAccessLayer.csproj", "{E41D1B09-ECBD-44F9-A275-C2792E14DA65}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "e_Ticaret.Cargo.DataAccessLayer", "Services\Cargo\e_Ticaret.Cargo.DataAccessLayer\e_Ticaret.Cargo.DataAccessLayer.csproj", "{E41D1B09-ECBD-44F9-A275-C2792E14DA65}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "e_Ticaret.Cargo.DtoLayer", "Services\Cargo\e_Ticaret.Cargo.DtoLayer\e_Ticaret.Cargo.DtoLayer.csproj", "{FB12536D-B4A7-4D46-92D1-D8F5FD1B1AF8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "e_Ticaret.Cargo.DtoLayer", "Services\Cargo\e_Ticaret.Cargo.DtoLayer\e_Ticaret.Cargo.DtoLayer.csproj", "{FB12536D-B4A7-4D46-92D1-D8F5FD1B1AF8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "e_Ticaret.Cargo.WebApi", "Services\Cargo\e_Ticaret.Cargo.WebApi\e_Ticaret.Cargo.WebApi.csproj", "{99E30F75-D7E5-44D5-BF51-B13A0F153686}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "e_Ticaret.Cargo.WebApi", "Services\Cargo\e_Ticaret.Cargo.WebApi\e_Ticaret.Cargo.WebApi.csproj", "{99E30F75-D7E5-44D5-BF51-B13A0F153686}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Basket", "Basket", "{81BA2E17-74D8-4B8F-9723-585DE35C7AD8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "e_Ticaret.Basket", "Services\Basket\e_Ticaret.Basket\e_Ticaret.Basket.csproj", "{14FB53F9-C59D-41A2-9E27-C625A71B38B9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -106,6 +110,10 @@ Global
 		{99E30F75-D7E5-44D5-BF51-B13A0F153686}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{99E30F75-D7E5-44D5-BF51-B13A0F153686}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{99E30F75-D7E5-44D5-BF51-B13A0F153686}.Release|Any CPU.Build.0 = Release|Any CPU
+		{14FB53F9-C59D-41A2-9E27-C625A71B38B9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{14FB53F9-C59D-41A2-9E27-C625A71B38B9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{14FB53F9-C59D-41A2-9E27-C625A71B38B9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{14FB53F9-C59D-41A2-9E27-C625A71B38B9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -130,6 +138,8 @@ Global
 		{E41D1B09-ECBD-44F9-A275-C2792E14DA65} = {FCDCEDD4-1F41-4336-8483-091DBD9571ED}
 		{FB12536D-B4A7-4D46-92D1-D8F5FD1B1AF8} = {FCDCEDD4-1F41-4336-8483-091DBD9571ED}
 		{99E30F75-D7E5-44D5-BF51-B13A0F153686} = {FCDCEDD4-1F41-4336-8483-091DBD9571ED}
+		{81BA2E17-74D8-4B8F-9723-585DE35C7AD8} = {0ECEDC68-896E-4019-8D94-84E06687B3CF}
+		{14FB53F9-C59D-41A2-9E27-C625A71B38B9} = {81BA2E17-74D8-4B8F-9723-585DE35C7AD8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C43193CF-3F29-4995-9148-4138B0A5CC55}
