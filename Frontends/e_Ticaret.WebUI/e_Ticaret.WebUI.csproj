@@ -28,4 +28,8 @@
     <Folder Include="Areas\Admin\Models\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\e_Ticaret.WebUIDtos\e_Ticaret.WebUIDtos.csproj" />
+  </ItemGroup>
+
 </Project>

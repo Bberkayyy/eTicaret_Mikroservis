@@ -54,11 +54,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "e_Ticaret.Cargo.WebApi", "S
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Basket", "Basket", "{81BA2E17-74D8-4B8F-9723-585DE35C7AD8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "e_Ticaret.Basket", "Services\Basket\e_Ticaret.Basket\e_Ticaret.Basket.csproj", "{14FB53F9-C59D-41A2-9E27-C625A71B38B9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "e_Ticaret.Basket", "Services\Basket\e_Ticaret.Basket\e_Ticaret.Basket.csproj", "{14FB53F9-C59D-41A2-9E27-C625A71B38B9}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Frontends", "Frontends", "{EF40115C-CF96-4D2E-913C-8A5C1B28369E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "e_Ticaret.WebUI", "Frontends\e_Ticaret.WebUI\e_Ticaret.WebUI.csproj", "{FA4A0938-4933-417B-8603-CFDD5296EDC5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "e_Ticaret.WebUI", "Frontends\e_Ticaret.WebUI\e_Ticaret.WebUI.csproj", "{FA4A0938-4933-417B-8603-CFDD5296EDC5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "e_Ticaret.WebUIDtos", "Frontends\e_Ticaret.WebUIDtos\e_Ticaret.WebUIDtos.csproj", "{42DB6EB6-4F77-43D0-AFB2-3599AAC12103}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -122,6 +124,10 @@ Global
 		{FA4A0938-4933-417B-8603-CFDD5296EDC5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FA4A0938-4933-417B-8603-CFDD5296EDC5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FA4A0938-4933-417B-8603-CFDD5296EDC5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{42DB6EB6-4F77-43D0-AFB2-3599AAC12103}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{42DB6EB6-4F77-43D0-AFB2-3599AAC12103}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{42DB6EB6-4F77-43D0-AFB2-3599AAC12103}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{42DB6EB6-4F77-43D0-AFB2-3599AAC12103}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -149,6 +155,7 @@ Global
 		{81BA2E17-74D8-4B8F-9723-585DE35C7AD8} = {0ECEDC68-896E-4019-8D94-84E06687B3CF}
 		{14FB53F9-C59D-41A2-9E27-C625A71B38B9} = {81BA2E17-74D8-4B8F-9723-585DE35C7AD8}
 		{FA4A0938-4933-417B-8603-CFDD5296EDC5} = {EF40115C-CF96-4D2E-913C-8A5C1B28369E}
+		{42DB6EB6-4F77-43D0-AFB2-3599AAC12103} = {EF40115C-CF96-4D2E-913C-8A5C1B28369E}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C43193CF-3F29-4995-9148-4138B0A5CC55}
