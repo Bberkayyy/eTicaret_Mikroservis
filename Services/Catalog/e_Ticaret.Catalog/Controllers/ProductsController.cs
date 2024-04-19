@@ -23,6 +23,12 @@ public class ProductsController : ControllerBase
         List<GetAllProductResponseDto> values = await _productService.GetAllProductAsync();
         return Ok(values);
     }
+    [HttpGet("withrelationships")]
+    public async Task<IActionResult> GetAllWithRelationships()
+    {
+        List<GetAllProductWithRelationshipsResponseDto> values = await _productService.GetAllProductWithRelationshipsAsync();
+        return Ok(values);
+    }
     [HttpGet("{id}")]
     public async Task<IActionResult> GetProduct(string id)
     {

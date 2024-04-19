@@ -18,6 +18,7 @@ public class GeneralMapping : Profile
 
         CreateMap<Product, CreateProductRequestDto>().ReverseMap();
         CreateMap<Product, GetAllProductResponseDto>().ReverseMap();
+        CreateMap<Product, GetAllProductWithRelationshipsResponseDto>().ForMember(x => x.CategoryName, opt => opt.MapFrom(x => x.Category.Name)).ReverseMap();
         CreateMap<Product, GetProductResponseDto>().ReverseMap();
         CreateMap<Product, UpdateProductRequestDto>().ReverseMap();
 

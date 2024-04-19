@@ -6,11 +6,12 @@
         @await Component.InvokeAsync("_AdminLayoutHeaderComponentPartial")
         @await Component.InvokeAsync("_AdminLayoutSidebarComponentPartial")
         <div class="content-wrapper">
-            @await Component.InvokeAsync("_AdminLayoutMainSectionComponentPartial")            
+            @await Component.InvokeAsync("_AdminLayoutMainSectionComponentPartial")
             @RenderBody()
         </div>
         @await Component.InvokeAsync("_AdminLayoutFooterComponentPartial")
     </div>
     @await Component.InvokeAsync("_AdminLayoutScriptComponentPartial")
+    @RenderSection("Scripts", required: false)
 </body>
 </html>
