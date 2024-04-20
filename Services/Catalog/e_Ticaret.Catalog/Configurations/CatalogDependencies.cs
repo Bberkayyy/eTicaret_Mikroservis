@@ -1,7 +1,9 @@
 ﻿using e_Ticaret.Catalog.Services.CategoryServices;
+using e_Ticaret.Catalog.Services.FeatureSliderServices;
 using e_Ticaret.Catalog.Services.ProductDetailServices;
 using e_Ticaret.Catalog.Services.ProductImageServices;
 using e_Ticaret.Catalog.Services.ProductServices;
+using e_Ticaret.Catalog.Services.SpecialOfferServices;
 using e_Ticaret.Catalog.Settings;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.Options;
@@ -23,6 +25,8 @@ public static class CatalogDependencies
         services.AddScoped<IProductService, ProductManager>();
         services.AddScoped<IProductDetailService, ProductDetailManager>();
         services.AddScoped<IProductImageService, ProductImageManager>();
+        services.AddScoped<IFeatureSliderService, FeatureSliderManager>();
+        services.AddScoped<ISpecialOfferService, SpecialOfferManager>();
 
         services.AddAutoMapper(Assembly.GetExecutingAssembly());
 

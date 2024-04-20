@@ -1,8 +1,10 @@
 ﻿using AutoMapper;
 using e_Ticaret.Catalog.Dtos.CategoryDtos;
+using e_Ticaret.Catalog.Dtos.FeatureSliderDtos;
 using e_Ticaret.Catalog.Dtos.ProductDetailDtos;
 using e_Ticaret.Catalog.Dtos.ProductDtos;
 using e_Ticaret.Catalog.Dtos.ProductImageDtos;
+using e_Ticaret.Catalog.Dtos.SpecialOfferDtos;
 using e_Ticaret.Catalog.Entities;
 
 namespace e_Ticaret.Catalog.Mapping;
@@ -31,5 +33,15 @@ public class GeneralMapping : Profile
         CreateMap<ProductImage, GetAllProductImageResponseDto>().ReverseMap();
         CreateMap<ProductImage, GetProductImageResponseDto>().ReverseMap();
         CreateMap<ProductImage, UpdateProductImageRequestDto>().ReverseMap();
+
+        CreateMap<FeatureSlider, CreateFeatureSliderRequestDto>().ReverseMap();
+        CreateMap<FeatureSlider, GetAllFeatureSliderResponseDto>().ReverseMap();
+        CreateMap<FeatureSlider, GetFeatureSliderResponseDto>().ReverseMap();
+        CreateMap<FeatureSlider, UpdateFeatureSliderRequestDto>().ReverseMap();
+
+        CreateMap<SpecialOffer, CreateSpecialOfferRequestDto>().ReverseMap();
+        CreateMap<SpecialOffer, GetAllSpecialOfferResponseDto>().ReverseMap();
+        CreateMap<SpecialOffer, GetSpecialOfferResponseDto>().ReverseMap();
+        CreateMap<SpecialOffer, UpdateSpecialOfferRequestDto>().ReverseMap();
     }
 }

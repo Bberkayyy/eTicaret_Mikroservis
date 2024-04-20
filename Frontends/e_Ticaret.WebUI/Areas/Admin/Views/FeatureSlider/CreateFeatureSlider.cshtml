@@ -1,0 +1,29 @@
+﻿@model CreateFeatureSliderDto
+@{
+    ViewData["Title"] = "CreateFeatureSlider";
+    Layout = "~/Areas/Admin/Views/AdminLayout/_AdminLayout.cshtml";
+}
+
+<div class="col-md-12">
+    <div class="chart-box">
+        <p>Aşağıdaki formu doldurarak yeni önce çıkan görsel ekleyebilirsiniz.</p>
+        <hr />
+        <form method="post">
+            <div class="form-group">
+                <label for="Title">Başlık</label>
+                <input type="text" class="form-control" id="Title" asp-for="Title">
+            </div> 
+            <div class="form-group">
+                <label for="ImageUrl">Görsel Url</label>
+                <input type="text" class="form-control" id="ImageUrl" asp-for="ImageUrl">
+            </div> 
+            <div class="form-group">
+                <label for="Description">Açıklama</label>
+                <input type="text" class="form-control" id="Description" asp-for="Description">
+            </div>
+            <button type="submit" class="btn btn-info">Kaydet</button>
+        </form>
+    </div>
+</div>
+
+
