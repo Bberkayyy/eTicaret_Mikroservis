@@ -19,6 +19,7 @@
                                     <tr>
                                         <th>#</th>
                                         <th>Kategori Adı</th>
+                                        <th>Görseli</th>
                                         <th>Sil</th>
                                         <th>Güncelle</th>
                                     </tr>
@@ -30,6 +31,7 @@
                                         <tr>
                                             <th scope="row">@count</th>
                                             <td>@item.Name</td>
+                                            <td>@item.ImageUrl</td>
                                             <td><a href="/admin/category/deletecategory/@item.Id" class="btn btn-danger">Sil</a></td>
                                             <td><a href="/admin/category/updatecategory/@item.Id" class="btn btn-success">Güncelle</a></td>
                                         </tr>
@@ -43,7 +45,7 @@
             }
             else
             {
-                <p class="bg-danger text-white p-4 text-center table-responsive">Kategori bilgisi bulunamadı. Kategori eklemek için "Kategori Ekle butonuna tıklayınız."</p>
+                <p class="bg-danger text-white p-4 text-center table-responsive">Kategori bilgisi bulunamadı. Kategori eklemek için "Kategori Ekle" butonuna tıklayınız.</p>
                 <a href="/admin/category/createcategory/" class="btn btn-primary">Kategori Ekle</a>
             }
         </div>

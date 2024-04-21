@@ -6,7 +6,6 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace e_Ticaret.Catalog.Controllers;
 
-[Authorize]
 [Route("api/specialoffers")]
 [ApiController]
 public class SpecialOffersController : ControllerBase

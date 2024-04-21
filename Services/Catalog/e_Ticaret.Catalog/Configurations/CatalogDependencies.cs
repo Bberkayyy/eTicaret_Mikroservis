@@ -1,4 +1,6 @@
-﻿using e_Ticaret.Catalog.Services.CategoryServices;
+﻿using e_Ticaret.Catalog.Services.BrandServices;
+using e_Ticaret.Catalog.Services.CategoryServices;
+using e_Ticaret.Catalog.Services.DiscountOfferServices;
 using e_Ticaret.Catalog.Services.FeatureSliderServices;
 using e_Ticaret.Catalog.Services.ProductDetailServices;
 using e_Ticaret.Catalog.Services.ProductImageServices;
@@ -7,6 +9,8 @@ using e_Ticaret.Catalog.Services.ServiceServices;
 using e_Ticaret.Catalog.Services.SpecialOfferServices;
 using e_Ticaret.Catalog.Settings;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.Extensions.Options;
 using System.Reflection;
 
@@ -29,6 +33,8 @@ public static class CatalogDependencies
         services.AddScoped<IFeatureSliderService, FeatureSliderManager>();
         services.AddScoped<ISpecialOfferService, SpecialOfferManager>();
         services.AddScoped<IServiceService, ServiceManager>();
+        services.AddScoped<IDiscountOfferService, DiscountOfferManager>();
+        services.AddScoped<IBrandService, BrandManager>();
 
         services.AddAutoMapper(Assembly.GetExecutingAssembly());
 
@@ -37,6 +43,12 @@ public static class CatalogDependencies
             opt.Authority = configuration["IdentityServerUrl"];
             opt.RequireHttpsMetadata = false;
             opt.Audience = "CatalogResource";
+        });
+
+        AuthorizationPolicy requireAuthorizePolicy = new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build();
+        services.AddControllers(opt =>
+        {
+            opt.Filters.Add(new AuthorizeFilter(requireAuthorizePolicy));
         });
 
         return services;

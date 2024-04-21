@@ -1,5 +1,7 @@
 ﻿using AutoMapper;
+using e_Ticaret.Catalog.Dtos.BrandDtos;
 using e_Ticaret.Catalog.Dtos.CategoryDtos;
+using e_Ticaret.Catalog.Dtos.DiscountOfferDtos;
 using e_Ticaret.Catalog.Dtos.FeatureSliderDtos;
 using e_Ticaret.Catalog.Dtos.ProductDetailDtos;
 using e_Ticaret.Catalog.Dtos.ProductDtos;
@@ -49,5 +51,15 @@ public class GeneralMapping : Profile
         CreateMap<Service, GetAllServiceResponseDto>().ReverseMap();
         CreateMap<Service, GetServiceResponseDto>().ReverseMap();
         CreateMap<Service, UpdateServiceRequestDto>().ReverseMap();
+
+        CreateMap<DiscountOffer, CreateDiscountOfferRequestDto>().ReverseMap();
+        CreateMap<DiscountOffer, GetAllDiscountOfferResponseDto>().ReverseMap();
+        CreateMap<DiscountOffer, GetDiscountOfferResponseDto>().ReverseMap();
+        CreateMap<DiscountOffer, UpdateDiscountOfferRequestDto>().ReverseMap();
+
+        CreateMap<Brand, CreateBrandRequestDto>().ReverseMap();
+        CreateMap<Brand, GetAllBrandResponseDto>().ReverseMap();
+        CreateMap<Brand, GetBrandResponseDto>().ReverseMap();
+        CreateMap<Brand, UpdateBrandRequestDto>().ReverseMap();
     }
 }

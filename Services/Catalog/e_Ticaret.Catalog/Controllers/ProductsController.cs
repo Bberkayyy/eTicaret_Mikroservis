@@ -6,7 +6,6 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace e_Ticaret.Catalog.Controllers;
 
-[Authorize]
 [Route("api/products")]
 [ApiController]
 public class ProductsController : ControllerBase

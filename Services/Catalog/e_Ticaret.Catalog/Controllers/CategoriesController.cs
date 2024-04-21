@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace e_Ticaret.Catalog.Controllers;
 
-[Authorize]
+
 [Route("api/categories")]
 [ApiController]
 public class CategoriesController : ControllerBase
