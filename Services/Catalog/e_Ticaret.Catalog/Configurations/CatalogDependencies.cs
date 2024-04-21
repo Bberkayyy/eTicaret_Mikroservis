@@ -1,4 +1,5 @@
-﻿using e_Ticaret.Catalog.Services.BrandServices;
+﻿using e_Ticaret.Catalog.Services.AboutServices;
+using e_Ticaret.Catalog.Services.BrandServices;
 using e_Ticaret.Catalog.Services.CategoryServices;
 using e_Ticaret.Catalog.Services.DiscountOfferServices;
 using e_Ticaret.Catalog.Services.FeatureSliderServices;
@@ -35,6 +36,7 @@ public static class CatalogDependencies
         services.AddScoped<IServiceService, ServiceManager>();
         services.AddScoped<IDiscountOfferService, DiscountOfferManager>();
         services.AddScoped<IBrandService, BrandManager>();
+        services.AddScoped<IAboutService, AboutManager>();
 
         services.AddAutoMapper(Assembly.GetExecutingAssembly());
 
