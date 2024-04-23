@@ -28,6 +28,12 @@ public class ProductsController : ControllerBase
         List<GetAllProductWithRelationshipsResponseDto> values = await _productService.GetAllProductWithRelationshipsAsync();
         return Ok(values);
     }
+    [HttpGet("withrelationshipsbycategoryid")]
+    public async Task<IActionResult> GetAllWithRelationshipsByCategoryId(string categoryId)
+    {
+        List<GetAllProductWtihRelationshipsByCategoryIdResponseDto> values = await _productService.GetAllProductWithRelationshipsByCategoryIdAsync(categoryId);
+        return Ok(values);
+    }
     [HttpGet("{id}")]
     public async Task<IActionResult> GetProduct(string id)
     {

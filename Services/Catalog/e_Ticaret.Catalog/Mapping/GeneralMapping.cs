@@ -25,6 +25,7 @@ public class GeneralMapping : Profile
         CreateMap<Product, CreateProductRequestDto>().ReverseMap();
         CreateMap<Product, GetAllProductResponseDto>().ReverseMap();
         CreateMap<Product, GetAllProductWithRelationshipsResponseDto>().ForMember(x => x.CategoryName, opt => opt.MapFrom(x => x.Category.Name)).ReverseMap();
+        CreateMap<Product, GetAllProductWtihRelationshipsByCategoryIdResponseDto>().ForMember(x => x.CategoryName, opt => opt.MapFrom(x => x.Category.Name)).ReverseMap();
         CreateMap<Product, GetProductResponseDto>().ReverseMap();
         CreateMap<Product, UpdateProductRequestDto>().ReverseMap();
 
@@ -62,7 +63,7 @@ public class GeneralMapping : Profile
         CreateMap<Brand, GetAllBrandResponseDto>().ReverseMap();
         CreateMap<Brand, GetBrandResponseDto>().ReverseMap();
         CreateMap<Brand, UpdateBrandRequestDto>().ReverseMap();
-        
+
         CreateMap<About, CreateAboutRequestDto>().ReverseMap();
         CreateMap<About, GetAllAboutResponseDto>().ReverseMap();
         CreateMap<About, GetAboutResponseDto>().ReverseMap();

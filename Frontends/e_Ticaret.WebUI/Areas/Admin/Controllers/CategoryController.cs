@@ -1,6 +1,8 @@
 ﻿using e_Ticaret.WebUIDtos.CatalogDtos.CategoryDtos;
+using e_Ticaret.WebUIDtos.CatalogDtos.ProductDtos;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System.Text;
 
 namespace e_Ticaret.WebUI.Areas.Admin.Controllers;
@@ -26,6 +28,22 @@ public class CategoryController : Controller
         {
             string jsonData = await responseMessage.Content.ReadAsStringAsync();
             IEnumerable<ResultCategoryDto>? values = JsonConvert.DeserializeObject<IEnumerable<ResultCategoryDto>>(jsonData);
+            return View(values);
+        }
+        return View();
+    }
+    [Route("categoryproducts")]
+    public async Task<IActionResult> CategoryProducts(string categoryId)
+    {
+        GetCategoryViewbagList();
+        ViewBag.categoryName = await GetCategoryName(categoryId);
+        ViewBag.v3 = $"{await GetCategoryName(categoryId)} Kategorisine Ait Ürün Listesi";
+        HttpClient client = _httpClientFactory.CreateClient();
+        HttpResponseMessage responseMessage = await client.GetAsync("https://localhost:7070/api/products/withrelationshipsbycategoryid?categoryId=" + categoryId);
+        if (responseMessage.IsSuccessStatusCode)
+        {
+            string jsonData = await responseMessage.Content.ReadAsStringAsync();
+            IEnumerable<ResultProductWithRelationshipsByCategoryIdDto>? values = JsonConvert.DeserializeObject<IEnumerable<ResultProductWithRelationshipsByCategoryIdDto>>(jsonData);
             return View(values);
         }
         return View();
@@ -91,5 +109,14 @@ public class CategoryController : Controller
     {
         ViewBag.v1 = "Anasayfa";
         ViewBag.v2 = "Kategori İşlemleri";
+    }
+    private async Task<string> GetCategoryName(string id)
+    {
+        HttpClient client = _httpClientFactory.CreateClient();
+        HttpResponseMessage responseMessage = await client.GetAsync("https://localhost:7070/api/categories/" + id);
+        string jsonData = await responseMessage.Content.ReadAsStringAsync();
+        JObject value = JObject.Parse(jsonData);
+        string categoryName = (string)value["name"];
+        return categoryName;
     }
 }

@@ -10,4 +10,5 @@ public interface IProductService
     Task UpdateProductAsync(UpdateProductRequestDto updateProductRequestDto);
     Task DeleteProductAsync(string id);
     Task<GetProductResponseDto> GetProductAsync(string id);
+    Task<List<GetAllProductWtihRelationshipsByCategoryIdResponseDto>> GetAllProductWithRelationshipsByCategoryIdAsync(string categoryId);
 }

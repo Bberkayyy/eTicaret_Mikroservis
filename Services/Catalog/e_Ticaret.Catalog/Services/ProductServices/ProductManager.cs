@@ -48,6 +48,15 @@ public class ProductManager : IProductService
         return mappedValues;
     }
 
+    public async Task<List<GetAllProductWtihRelationshipsByCategoryIdResponseDto>> GetAllProductWithRelationshipsByCategoryIdAsync(string categoryId)
+    {
+        List<Product> values = await _productCollection.Find<Product>(x => x.CategoryId == categoryId).ToListAsync();
+        foreach (Product item in values)
+            item.Category = await _categoryCollection.Find<Category>(x => x.Id == item.CategoryId).FirstAsync();
+        List<GetAllProductWtihRelationshipsByCategoryIdResponseDto> mappedValues = _mapper.Map<List<GetAllProductWtihRelationshipsByCategoryIdResponseDto>>(values);
+        return mappedValues;
+    }
+
     public async Task<GetProductResponseDto> GetProductAsync(string id)
     {
         Product value = await _productCollection.Find<Product>(x => x.Id == id).FirstOrDefaultAsync();
