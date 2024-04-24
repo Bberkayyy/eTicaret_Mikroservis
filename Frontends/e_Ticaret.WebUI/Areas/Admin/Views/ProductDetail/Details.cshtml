@@ -1,0 +1,49 @@
+﻿@model ResultProductDetailWithRelationshipsByProductIdDto
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Areas/Admin/Views/AdminLayout/_AdminLayout.cshtml";
+}
+<section class="content container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            @if (Model is not null)
+            {
+                <div class="chart-box">
+                    <p>@Model.ProductName ürününün açıklaması ve bilgisi ile ilgili işlemlerinizi aşağıdaki tablodan gerçekleştirebilirsiniz.</p>
+                    <hr />
+                    <div class="bs-example" data-example-id="simple-responsive-table">
+                        <div class="table-responsive m-top-2">
+                            <table class="table table-bordered table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>Ürün Adı</th>
+                                        <th>Açıklaması</th>
+                                        <th>Bilgisi</th>
+                                        <th>Sil</th>
+                                        <th>Güncelle</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>@Model.ProductName</td>
+                                        <td>@Model.ProductDescription</td>
+                                        <td>@Model.ProductInfo</td>
+                                        <td><a href="/admin/productdetail/deletedetails/@Model.Id" class="btn btn-danger">Sil</a></td>
+                                        <td><a href="/admin/productdetail/updatedetails/@Model.Id" class="btn btn-success">Güncelle</a></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <a href="/admin/product/index/" class="btn btn-primary">Geri Dön</a>
+                        </div>
+                    </div>
+                </div>
+            }
+            else
+            {
+                <p class="bg-danger text-white p-4 text-center table-responsive">@ViewBag.productName ürününe ait açıklama ve bilgi bulunamadı. Ürün açıklaması ve bilgisi eklemek için "Açıklama ve Bilgi Ekle" butonuna tıklayınız.</p>
+                <a href="/admin/productdetail/createdetails/@ViewBag.productId" class="btn btn-primary">Açıklama ve Bilgi Ekle</a>
+            }
+        </div>
+    </div>
+</section>
+

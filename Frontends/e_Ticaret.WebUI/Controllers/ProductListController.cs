@@ -17,21 +17,23 @@ public class ProductListController : Controller
     {
         return View();
     }
-    public IActionResult ProductDetail()
+    public IActionResult ProductDetail(string id)
     {
+        ViewBag.productId = id;
         return View();
     }
     public async Task<IActionResult> ProductListByCategory(string id)
     {
-        ViewBag.Id = id;
+        ViewBag.categoryId = id;
+        ViewBag.categoryName = await GetCategoryName(id);
+        return View();
+    }
+    private async Task<string> GetCategoryName(string id)
+    {
         HttpClient client = _httpClientFactory.CreateClient();
         HttpResponseMessage responseMessage = await client.GetAsync("https://localhost:7070/api/categories/" + id);
-        if (responseMessage.IsSuccessStatusCode)
-        {
-            string jsonData = await responseMessage.Content.ReadAsStringAsync();
-            ResultCategoryDto? value = JsonConvert.DeserializeObject<ResultCategoryDto>(jsonData);
-            ViewBag.categoryName = value.Name;
-        }
-        return View();
+        string jsonData = await responseMessage.Content.ReadAsStringAsync();
+        ResultCategoryDto? value = JsonConvert.DeserializeObject<ResultCategoryDto>(jsonData);
+        return value.Name;
     }
 }

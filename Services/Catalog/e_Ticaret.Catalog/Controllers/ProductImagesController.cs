@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace e_Ticaret.Catalog.Controllers;
 
-[Route("api/productimanges")]
+[Route("api/productimages")]
 [ApiController]
 public class ProductImagesController : ControllerBase
 {
@@ -26,6 +26,12 @@ public class ProductImagesController : ControllerBase
     public async Task<IActionResult> GetProductImage(string id)
     {
         GetProductImageResponseDto value = await _productImageService.GetProductImageAsync(id);
+        return Ok(value);
+    }
+    [HttpGet("getwithrelationshipsbyproductid")]
+    public async Task<IActionResult> GetProductImageWithRelationshipsByProductId(string productId)
+    {
+        GetProductImageWithRelationshipsByProductIdResponseDto value = await _productImageService.GetProductImageWithRelationshipsByProductIdAsync(productId);
         return Ok(value);
     }
     [HttpPost]

@@ -32,11 +32,13 @@ public class GeneralMapping : Profile
         CreateMap<ProductDetail, CreateProductDetailRequestDto>().ReverseMap();
         CreateMap<ProductDetail, GetAllProductDetailResponseDto>().ReverseMap();
         CreateMap<ProductDetail, GetProductDetailResponseDto>().ReverseMap();
+        CreateMap<ProductDetail, GetProductDetailWithRelationshipsByProductIdResponseDto>().ForMember(x => x.ProductName, opt => opt.MapFrom(x => x.Product.Name)).ReverseMap();
         CreateMap<ProductDetail, UpdateProductDetailRequestDto>().ReverseMap();
 
         CreateMap<ProductImage, CreateProductImageRequestDto>().ReverseMap();
         CreateMap<ProductImage, GetAllProductImageResponseDto>().ReverseMap();
         CreateMap<ProductImage, GetProductImageResponseDto>().ReverseMap();
+        CreateMap<ProductImage, GetProductImageWithRelationshipsByProductIdResponseDto>().ForMember(x => x.ProductName, opt => opt.MapFrom(x => x.Product.Name)).ReverseMap();
         CreateMap<ProductImage, UpdateProductImageRequestDto>().ReverseMap();
 
         CreateMap<FeatureSlider, CreateFeatureSliderRequestDto>().ReverseMap();

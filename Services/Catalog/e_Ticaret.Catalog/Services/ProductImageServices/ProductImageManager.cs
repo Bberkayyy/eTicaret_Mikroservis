@@ -9,6 +9,7 @@ namespace e_Ticaret.Catalog.Services.ProductImageServices;
 public class ProductImageManager : IProductImageService
 {
     private readonly IMongoCollection<ProductImage> _productImageCollection;
+    private readonly IMongoCollection<Product> _productCollection;
     private readonly IMapper _mapper;
 
     public ProductImageManager(IMapper mapper, IDatabaseSettings _databaseSettings)
@@ -16,6 +17,7 @@ public class ProductImageManager : IProductImageService
         MongoClient client = new(_databaseSettings.ConnectionString);
         IMongoDatabase database = client.GetDatabase(_databaseSettings.DatabaseName);
         _productImageCollection = database.GetCollection<ProductImage>(_databaseSettings.ProductImageCollectionName);
+        _productCollection = database.GetCollection<Product>(_databaseSettings.ProductCollectionName);
         _mapper = mapper;
     }
 
@@ -41,6 +43,14 @@ public class ProductImageManager : IProductImageService
     {
         ProductImage value = await _productImageCollection.Find<ProductImage>(x => x.Id == id).FirstOrDefaultAsync();
         GetProductImageResponseDto mappedValue = _mapper.Map<GetProductImageResponseDto>(value);
+        return mappedValue;
+    }
+
+    public async Task<GetProductImageWithRelationshipsByProductIdResponseDto> GetProductImageWithRelationshipsByProductIdAsync(string productId)
+    {
+        ProductImage value = await _productImageCollection.Find<ProductImage>(x => x.ProductId == productId).FirstOrDefaultAsync();
+        value.Product = await _productCollection.Find<Product>(x => x.Id == value.ProductId).FirstAsync();
+        GetProductImageWithRelationshipsByProductIdResponseDto mappedValue = _mapper.Map<GetProductImageWithRelationshipsByProductIdResponseDto>(value);
         return mappedValue;
     }
 

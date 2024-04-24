@@ -9,4 +9,5 @@ public interface IProductImageService
     Task UpdateProductImageAsync(UpdateProductImageRequestDto updateProductImageRequestDto);
     Task DeleteProductImageAsync(string id);
     Task<GetProductImageResponseDto> GetProductImageAsync(string id);
+    Task<GetProductImageWithRelationshipsByProductIdResponseDto> GetProductImageWithRelationshipsByProductIdAsync(string productId);
 }

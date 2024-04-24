@@ -22,6 +22,8 @@
                                         <th>Ürün Adı</th>
                                         <th>Fiyatı</th>
                                         <th>Kategorisi</th>
+                                        <th>Görseller</th>
+                                        <th>Açıklama ve Bilgi</th>
                                         <th>Sil</th>
                                         <th>Güncelle</th>
                                     </tr>
@@ -35,6 +37,8 @@
                                             <td>@item.Name</td>
                                             <td>@item.Price ₺</td>
                                             <td>@item.CategoryName</td>
+                                            <td><a href="/admin/productimage/images/@item.Id" class="btn btn-warning">Görseller</a></td>
+                                            <td><a href="/admin/productdetail/details/@item.Id" class="btn btn-default">Açıklama ve Bilgi</a></td>
                                             <td><a href="/admin/product/deleteproduct/@item.Id" class="btn btn-danger">Sil</a></td>
                                             <td><a href="/admin/product/updateproduct/@item.Id" class="btn btn-success">Güncelle</a></td>
                                         </tr>
@@ -48,7 +52,7 @@
             }
             else
             {
-                <p class="bg-danger text-white p-4 text-center table-responsive">Ürün bilgisi bulunamadı. Ürün eklemek için "Ürün Ekle butonuna tıklayınız."</p>
+                <p class="bg-danger text-white p-4 text-center table-responsive">Ürün bilgisi bulunamadı. Ürün eklemek için "Ürün Ekle" butonuna tıklayınız.</p>
                 <a href="/admin/product/createproduct/" class="btn btn-primary">Ürün Ekle</a>
             }
         </div>

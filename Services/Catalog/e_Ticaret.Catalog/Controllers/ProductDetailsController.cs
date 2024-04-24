@@ -1,5 +1,7 @@
 ﻿using e_Ticaret.Catalog.Dtos.ProductDetailDtos;
+using e_Ticaret.Catalog.Dtos.ProductImageDtos;
 using e_Ticaret.Catalog.Services.ProductDetailServices;
+using e_Ticaret.Catalog.Services.ProductImageServices;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -26,6 +28,12 @@ public class ProductDetailsController : ControllerBase
     public async Task<IActionResult> GetProductDetail(string id)
     {
         GetProductDetailResponseDto value = await _productDetailService.GetProductDetailAsync(id);
+        return Ok(value);
+    }
+    [HttpGet("getwithrelationshipsbyproductid")]
+    public async Task<IActionResult> GetProductDetailWithRelationshipsByProductId(string productId)
+    {
+        GetProductDetailWithRelationshipsByProductIdResponseDto value = await _productDetailService.GetProductDetailWithRelationshipsByProductIdAsync(productId);
         return Ok(value);
     }
     [HttpPost]

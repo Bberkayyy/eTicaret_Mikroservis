@@ -9,6 +9,7 @@ namespace e_Ticaret.Catalog.Services.ProductDetailServices;
 public class ProductDetailManager : IProductDetailService
 {
     private readonly IMongoCollection<ProductDetail> _productDetailCollection;
+    private readonly IMongoCollection<Product> _productCollection;
     private readonly IMapper _mapper;
 
     public ProductDetailManager(IMapper mapper, IDatabaseSettings _databaseSettings)
@@ -16,6 +17,7 @@ public class ProductDetailManager : IProductDetailService
         MongoClient client = new(_databaseSettings.ConnectionString);
         IMongoDatabase database = client.GetDatabase(_databaseSettings.DatabaseName);
         _productDetailCollection = database.GetCollection<ProductDetail>(_databaseSettings.ProductDetailCollectionName);
+        _productCollection = database.GetCollection<Product>(_databaseSettings.ProductCollectionName);
         _mapper = mapper;
     }
 
@@ -41,6 +43,14 @@ public class ProductDetailManager : IProductDetailService
     {
         ProductDetail value = await _productDetailCollection.Find<ProductDetail>(x => x.Id == id).FirstOrDefaultAsync();
         GetProductDetailResponseDto mappedValue = _mapper.Map<GetProductDetailResponseDto>(value);
+        return mappedValue;
+    }
+
+    public async Task<GetProductDetailWithRelationshipsByProductIdResponseDto> GetProductDetailWithRelationshipsByProductIdAsync(string productId)
+    {
+        ProductDetail value = await _productDetailCollection.Find<ProductDetail>(x => x.ProductId == productId).FirstOrDefaultAsync();
+        value.Product = await _productCollection.Find<Product>(x => x.Id == value.ProductId).FirstAsync();
+        GetProductDetailWithRelationshipsByProductIdResponseDto mappedValue = _mapper.Map<GetProductDetailWithRelationshipsByProductIdResponseDto>(value);
         return mappedValue;
     }
 

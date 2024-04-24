@@ -9,6 +9,8 @@ namespace e_Ticaret.Catalog.Services.ProductServices;
 public class ProductManager : IProductService
 {
     private readonly IMongoCollection<Product> _productCollection;
+    private readonly IMongoCollection<ProductImage> _productImageCollection;
+    private readonly IMongoCollection<ProductDetail> _productDetailCollection;
     private readonly IMongoCollection<Category> _categoryCollection;
     private readonly IMapper _mapper;
 
@@ -17,6 +19,8 @@ public class ProductManager : IProductService
         MongoClient client = new(_databaseSettings.ConnectionString);
         IMongoDatabase database = client.GetDatabase(_databaseSettings.DatabaseName);
         _productCollection = database.GetCollection<Product>(_databaseSettings.ProductCollectionName);
+        _productImageCollection = database.GetCollection<ProductImage>(_databaseSettings.ProductImageCollectionName);
+        _productDetailCollection = database.GetCollection<ProductDetail>(_databaseSettings.ProductDetailCollectionName);
         _categoryCollection = database.GetCollection<Category>(_databaseSettings.CategoryCollectionName);
         _mapper = mapper;
     }
@@ -30,6 +34,8 @@ public class ProductManager : IProductService
     public async Task DeleteProductAsync(string id)
     {
         await _productCollection.DeleteOneAsync(x => x.Id == id);
+        await _productImageCollection.DeleteOneAsync(x => x.ProductId == id);
+        await _productDetailCollection.DeleteOneAsync(x => x.ProductId == id);
     }
 
     public async Task<List<GetAllProductResponseDto>> GetAllProductAsync()
