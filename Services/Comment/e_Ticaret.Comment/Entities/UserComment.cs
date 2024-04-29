@@ -1,0 +1,15 @@
+﻿namespace e_Ticaret.Comment.Entities;
+
+public class UserComment
+{
+    public int Id { get; set; }
+    public string ProductId { get; set; }
+    public string FullName { get; set; }
+    public string? ImageUrl { get; set; }
+    public string Email { get; set; }
+    public string Detail { get; set; }
+    public int Rating { get; set; }
+    public DateTime CreatedDate { get; set; }
+    public DateTime? UpdatedDate { get; set; }
+    public bool IsActive { get; set; }
+}

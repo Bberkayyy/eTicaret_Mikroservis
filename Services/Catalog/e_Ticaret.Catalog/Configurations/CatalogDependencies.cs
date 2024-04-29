@@ -47,11 +47,11 @@ public static class CatalogDependencies
             opt.Audience = "CatalogResource";
         });
 
-        AuthorizationPolicy requireAuthorizePolicy = new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build();
-        services.AddControllers(opt =>
-        {
-            opt.Filters.Add(new AuthorizeFilter(requireAuthorizePolicy));
-        });
+        //AuthorizationPolicy requireAuthorizePolicy = new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build();
+        //services.AddControllers(opt =>
+        //{
+        //    opt.Filters.Add(new AuthorizeFilter(requireAuthorizePolicy));
+        //});
 
         return services;
     }
