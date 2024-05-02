@@ -2,6 +2,7 @@
 using e_Ticaret.Catalog.Dtos.AboutDtos;
 using e_Ticaret.Catalog.Dtos.BrandDtos;
 using e_Ticaret.Catalog.Dtos.CategoryDtos;
+using e_Ticaret.Catalog.Dtos.ContactDtos;
 using e_Ticaret.Catalog.Dtos.DiscountOfferDtos;
 using e_Ticaret.Catalog.Dtos.FeatureSliderDtos;
 using e_Ticaret.Catalog.Dtos.ProductDetailDtos;
@@ -70,5 +71,10 @@ public class GeneralMapping : Profile
         CreateMap<About, GetAllAboutResponseDto>().ReverseMap();
         CreateMap<About, GetAboutResponseDto>().ReverseMap();
         CreateMap<About, UpdateAboutRequestDto>().ReverseMap();
+
+        CreateMap<Contact, CreateContactRequestDto>().ReverseMap();
+        CreateMap<Contact, GetAllContactResponseDto>().ReverseMap();
+        CreateMap<Contact, GetContactResponseDto>().ReverseMap();
+        CreateMap<Contact, UpdateContactRequestDto>().ReverseMap();
     }
 }

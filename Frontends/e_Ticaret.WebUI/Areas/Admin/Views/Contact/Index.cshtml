@@ -1,0 +1,67 @@
+﻿@model IEnumerable<ResultContactDto>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Admin/Views/AdminLayout/_AdminLayout.cshtml";
+    int count = 0;
+}
+
+<section class="content container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            @if (Model.Count() > 0)
+            {
+                <div class="chart-box">
+                    <p>İletişim ile ilgili işlemlerinizi aşağıdaki tablodan gerçekleştirebilirsiniz.</p>
+                    <hr />
+                    <div class="bs-example" data-example-id="simple-responsive-table">
+                        <div class="table-responsive m-top-2">
+                            <table class="table table-bordered table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Adı Soyadı</th>
+                                        <th>Email</th>
+                                        <th>Konu</th>
+                                        <th>Göderim Tarihi</th>
+                                        <th>Okunma Tarihi</th>
+                                        <th>Okundu Olarak İşaretle</th>
+                                        <th>Mesaj Detayı</th>
+                                        <th>Sil</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model)
+                                    {
+                                        count++;
+                                        <tr>
+                                            <td>@count</td>
+                                            <td>@item.Fullname</td>
+                                            <td>@item.Email</td>
+                                            <td>@item.Subject</td>
+                                            <td>@item.SendDate</td>
+                                            <td>@(item.IsRead ? item.ReadTime : "Okunmadı.")</td>
+                                            @if (!item.IsRead)
+                                            {
+                                                <td><a href="/admin/contact/isreadtotrue/@item.Id" class="btn btn-success">Okundu Olarak İşaretle</a></td>
+                                            }
+                                            else
+                                            {
+                                                <td><a href="/admin/contact/isreadtotrue/@item.Id" class="btn btn-success disabled">Okundu.</a></td>
+                                            }
+                                            <td><a href="/admin/contact/detail/@item.Id" class="btn btn-info">Mesajı Gör</a></td>
+                                            <td><a href="/admin/contact/deletecontact/@item.Id" class="btn btn-danger">Sil</a></td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            }
+            else
+            {
+                <p class="bg-danger text-white p-4 text-center table-responsive">İletişim bilgisi bulunamadı.</p>
+            }
+        </div>
+    </div>
+</section>

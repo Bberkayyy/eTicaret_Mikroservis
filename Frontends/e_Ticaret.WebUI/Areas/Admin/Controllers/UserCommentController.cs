@@ -1,6 +1,8 @@
-﻿using e_Ticaret.WebUIDtos.CommentDtos.UserCommentDtos;
+﻿using e_Ticaret.WebUIDtos.CatalogDtos.ProductDtos;
+using e_Ticaret.WebUIDtos.CommentDtos.UserCommentDtos;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System.Text;
 
 namespace e_Ticaret.WebUI.Areas.Admin.Controllers;
@@ -22,6 +24,25 @@ public class UserCommentController : Controller
         ViewBag.v3 = "Yorum Listesi";
         HttpClient client = _httpClientFactory.CreateClient();
         HttpResponseMessage responseMessage = await client.GetAsync("https://localhost:7075/api/comments");
+        if (responseMessage.IsSuccessStatusCode)
+        {
+            string jsonData = await responseMessage.Content.ReadAsStringAsync();
+            IEnumerable<ResultUserCommentDto>? values = JsonConvert.DeserializeObject<IEnumerable<ResultUserCommentDto>>(jsonData);
+            return View(values);
+        }
+        return View();
+    }
+    [Route("comment/{productId}")]
+    public async Task<IActionResult> Comments(string productId)
+    {
+        ViewBag.v1 = "Anasayfa";
+        ViewBag.v2 = "Ürün İşlemleri";
+        string productName = await GetProductName(productId);
+        ViewBag.productName = productName;
+        ViewBag.productId = productId;
+        ViewBag.v3 = $"{productName} Ürününe Ait Yorumlar";
+        HttpClient client = _httpClientFactory.CreateClient();
+        HttpResponseMessage responseMessage = await client.GetAsync("https://localhost:7075/api/comments/commentlistbyproductid?id="+productId);
         if (responseMessage.IsSuccessStatusCode)
         {
             string jsonData = await responseMessage.Content.ReadAsStringAsync();
@@ -71,5 +92,13 @@ public class UserCommentController : Controller
     {
         ViewBag.v1 = "Anasayfa";
         ViewBag.v2 = "Yorum İşlemleri";
+    }
+    private async Task<string> GetProductName(string id)
+    {
+        HttpClient client = _httpClientFactory.CreateClient();
+        HttpResponseMessage responseMessage = await client.GetAsync("https://localhost:7070/api/products/" + id);
+        string jsonData = await responseMessage.Content.ReadAsStringAsync();
+        ResultProductDto? value = JsonConvert.DeserializeObject<ResultProductDto>(jsonData);
+        return value.Name;
     }
 }

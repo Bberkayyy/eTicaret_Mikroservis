@@ -23,6 +23,7 @@
                                         <th>Fiyatı</th>
                                         <th>Kategorisi</th>
                                         <th>Görseller</th>
+                                        <th>Ürün Yorumları</th>
                                         <th>Açıklama ve Bilgi</th>
                                         <th>Sil</th>
                                         <th>Güncelle</th>
@@ -38,6 +39,7 @@
                                             <td>@item.Price ₺</td>
                                             <td>@item.CategoryName</td>
                                             <td><a href="/admin/productimage/images/@item.Id" class="btn btn-warning">Görseller</a></td>
+                                            <td><a href="/admin/usercomment/comment/@item.Id" class="btn btn-info">Yorumlar</a></td>
                                             <td><a href="/admin/productdetail/details/@item.Id" class="btn btn-default">Açıklama ve Bilgi</a></td>
                                             <td><a href="/admin/product/deleteproduct/@item.Id" class="btn btn-danger">Sil</a></td>
                                             <td><a href="/admin/product/updateproduct/@item.Id" class="btn btn-success">Güncelle</a></td>

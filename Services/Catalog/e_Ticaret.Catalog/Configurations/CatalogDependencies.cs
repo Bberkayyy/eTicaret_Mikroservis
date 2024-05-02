@@ -1,6 +1,7 @@
 ﻿using e_Ticaret.Catalog.Services.AboutServices;
 using e_Ticaret.Catalog.Services.BrandServices;
 using e_Ticaret.Catalog.Services.CategoryServices;
+using e_Ticaret.Catalog.Services.ContactServices;
 using e_Ticaret.Catalog.Services.DiscountOfferServices;
 using e_Ticaret.Catalog.Services.FeatureSliderServices;
 using e_Ticaret.Catalog.Services.ProductDetailServices;
@@ -37,6 +38,7 @@ public static class CatalogDependencies
         services.AddScoped<IDiscountOfferService, DiscountOfferManager>();
         services.AddScoped<IBrandService, BrandManager>();
         services.AddScoped<IAboutService, AboutManager>();
+        services.AddScoped<IContactService, ContactManager>();
 
         services.AddAutoMapper(Assembly.GetExecutingAssembly());
 
@@ -47,11 +49,11 @@ public static class CatalogDependencies
             opt.Audience = "CatalogResource";
         });
 
-        //AuthorizationPolicy requireAuthorizePolicy = new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build();
-        //services.AddControllers(opt =>
-        //{
-        //    opt.Filters.Add(new AuthorizeFilter(requireAuthorizePolicy));
-        //});
+        AuthorizationPolicy requireAuthorizePolicy = new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build();
+        services.AddControllers(opt =>
+        {
+            opt.Filters.Add(new AuthorizeFilter(requireAuthorizePolicy));
+        });
 
         return services;
     }
