@@ -35,6 +35,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "e_Ticaret.IdentityServer", 
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Requirements", "Requirements", "{1FC4CBCD-9385-4C94-91BB-86C383D9A4D6}"
 	ProjectSection(SolutionItems) = preProject
+		CustomUsers.txt = CustomUsers.txt
 		IdentityServerErrorSolution.txt = IdentityServerErrorSolution.txt
 		PortainerCmd.txt = PortainerCmd.txt
 		PortNumbers.txt = PortNumbers.txt
@@ -64,7 +65,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "e_Ticaret.WebUIDtos", "Fron
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Comment", "Comment", "{565E10B7-0EA8-4A5C-AE66-B8114A22F2E7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "e_Ticaret.Comment", "Services\Comment\e_Ticaret.Comment\e_Ticaret.Comment.csproj", "{DC89679D-9624-4EB8-8FF8-DDFCA17F9B85}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "e_Ticaret.Comment", "Services\Comment\e_Ticaret.Comment\e_Ticaret.Comment.csproj", "{DC89679D-9624-4EB8-8FF8-DDFCA17F9B85}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

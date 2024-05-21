@@ -8,7 +8,7 @@ using static IdentityServer4.IdentityServerConstants;
 
 namespace e_Ticaret.IdentityServer.Controllers;
 
-[Authorize(LocalApi.PolicyName)]
+[AllowAnonymous]
 [Route("api/registers")]
 [ApiController]
 public class RegistersController : ControllerBase
