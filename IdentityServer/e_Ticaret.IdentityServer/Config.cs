@@ -17,6 +17,11 @@ public static class Config
         new ApiResource("OrderResource"){Scopes={"OrderFullPermission"}},
         new ApiResource("CargoResource"){Scopes={"CargoFullPermission"}},
         new ApiResource("BasketResource"){Scopes={"BasketFullPermission"}},
+        new ApiResource("CommentResource"){Scopes={"CommentFullPermission"}},
+        new ApiResource("PaymentResource"){Scopes={"PaymentFullPermission"}},
+        new ApiResource("ImageResource"){Scopes={"ImageFullPermission"}},
+
+        new ApiResource("OcelotResource"){Scopes={"OcelotFullPermission"}},
         new ApiResource(IdentityServerConstants.LocalApi.ScopeName)
     };
     public static IEnumerable<IdentityResource> IdentityResources => new IdentityResource[]
@@ -33,6 +38,11 @@ public static class Config
         new ApiScope("OrderFullPermission","Full authority for order operations"),
         new ApiScope("CargoFullPermission","Full authority for cargo operations"),
         new ApiScope("BasketFullPermission","Full authority for basket operations"),
+        new ApiScope("CommentFullPermission","Full authority for comment operations"),
+        new ApiScope("PaymentFullPermission","Full authority for payment operations"),
+        new ApiScope("ImageFullPermission","Full authority for image operations"),
+
+        new ApiScope("OcelotFullPermission","Full authority for ocelot operations"),
         new ApiScope(IdentityServerConstants.LocalApi.ScopeName)
     };
     public static IEnumerable<Client> Clients => new Client[]
@@ -43,7 +53,7 @@ public static class Config
             ClientName="e_Ticaret Visitor User",
             AllowedGrantTypes=GrantTypes.ClientCredentials,
             ClientSecrets={new Secret("e_ticaretsecret".Sha256())},
-            AllowedScopes={ "DiscountFullPermission" }
+            AllowedScopes={ "CatalogFullPermission", "OcelotFullPermission", "CommentFullPermission", "ImageFullPermission" }
         },
         new Client
         {
@@ -51,7 +61,7 @@ public static class Config
             ClientName="e_Ticaret Manager User",
             AllowedGrantTypes=GrantTypes.ResourceOwnerPassword,
             ClientSecrets={new Secret("e_ticaretsecret".Sha256())},
-            AllowedScopes={ "CatalogFullPermission" }
+            AllowedScopes={ "CatalogFullPermission" , "BasketFullPermission", "OcelotFullPermission", "CommentFullPermission", "PaymentFullPermission", "ImageFullPermission" }
         },
         new Client
         {
@@ -59,7 +69,7 @@ public static class Config
             ClientName="e_Ticaret Admin User",
             AllowedGrantTypes=GrantTypes.ResourceOwnerPassword,
             ClientSecrets={new Secret("e_ticaretsecret".Sha256())},
-            AllowedScopes={ "CatalogFullPermission", "DiscountFullPermission", "OrderFullPermission","CatalogReadPermission","CargoFullPermission","BasketFullPermission",
+            AllowedScopes={ "CatalogFullPermission", "DiscountFullPermission", "OrderFullPermission","CatalogReadPermission","CargoFullPermission","BasketFullPermission","OcelotFullPermission", "CommentFullPermission","PaymentFullPermission","ImageFullPermission",
                 IdentityServerConstants.LocalApi.ScopeName,
                 IdentityServerConstants.StandardScopes.Email,
                 IdentityServerConstants.StandardScopes.OpenId,
