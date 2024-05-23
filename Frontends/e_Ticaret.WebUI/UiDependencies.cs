@@ -1,4 +1,5 @@
-﻿using e_Ticaret.WebUI.Services.Abstract;
+﻿using e_Ticaret.WebUI.Handlers;
+using e_Ticaret.WebUI.Services.Abstract;
 using e_Ticaret.WebUI.Services.Concrete;
 using e_Ticaret.WebUI.Settings;
 using Microsoft.AspNetCore.Authentication.Cookies;
@@ -30,10 +31,19 @@ public static class UiDependencies
         });
 
         services.Configure<ClientSettings>(configuration.GetSection("ClientSettings"));
+        services.Configure<ServiceApiSettings>(configuration.GetSection("ServiceApiSettings"));
+
+        services.AddScoped<ResourceOwnerPasswordTokenHandler>();
 
         services.AddHttpContextAccessor();
         services.AddScoped<ILoginService, LoginService>();
         services.AddScoped<IIdentityService, IdentityService>();
+
+        ServiceApiSettings values = configuration.GetSection("ServiceApiSettings").Get<ServiceApiSettings>();
+        services.AddHttpClient<IUserService, UserService>(opt =>
+        {
+            opt.BaseAddress = new Uri(values.IdentityServerUrl);
+        }).AddHttpMessageHandler<ResourceOwnerPasswordTokenHandler>();
 
         services.AddHttpClient();
 

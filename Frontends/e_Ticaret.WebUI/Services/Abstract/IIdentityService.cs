@@ -5,4 +5,5 @@ namespace e_Ticaret.WebUI.Services.Abstract;
 public interface IIdentityService
 {
     Task<bool> SignIn(SignInDto signInDto);
+    Task<bool> GetRefreshToken();
 }

@@ -61,7 +61,11 @@ public static class Config
             ClientName="e_Ticaret Manager User",
             AllowedGrantTypes=GrantTypes.ResourceOwnerPassword,
             ClientSecrets={new Secret("e_ticaretsecret".Sha256())},
-            AllowedScopes={ "CatalogFullPermission" , "BasketFullPermission", "OcelotFullPermission", "CommentFullPermission", "PaymentFullPermission", "ImageFullPermission" }
+            AllowedScopes={ "CatalogFullPermission" , "BasketFullPermission", "OcelotFullPermission", "CommentFullPermission", "PaymentFullPermission", "ImageFullPermission",
+                IdentityServerConstants.LocalApi.ScopeName,
+                IdentityServerConstants.StandardScopes.Email,
+                IdentityServerConstants.StandardScopes.OpenId,
+                IdentityServerConstants.StandardScopes.Profile }
         },
         new Client
         {

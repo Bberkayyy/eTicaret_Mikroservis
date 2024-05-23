@@ -1,0 +1,33 @@
+    [HttpPost]
+    public async Task<IActionResult> LoginForm(CreateLoginDto createLoginDto)
+    {
+        HttpClient client = _httpClientFactory.CreateClient();
+        string jsonData = JsonSerializer.Serialize(createLoginDto);
+        StringContent content = new(jsonData, Encoding.UTF8, "application/json");
+        HttpResponseMessage responseMessage = await client.PostAsync("http://localhost:5001/api/logins", content);
+        if (responseMessage.IsSuccessStatusCode)
+        {
+            string data = await responseMessage.Content.ReadAsStringAsync();
+            JwtResponseModel? tokenModel = JsonSerializer.Deserialize<JwtResponseModel>(data, new JsonSerializerOptions
+            {
+                PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+            });
+            if (tokenModel != null)
+            {
+                JwtSecurityTokenHandler tokenHandler = new JwtSecurityTokenHandler();
+                JwtSecurityToken token = tokenHandler.ReadJwtToken(tokenModel.Token);
+                List<Claim> claims = token.Claims.ToList();
+
+                claims.Add(new Claim("e_ticaretjwt", tokenModel.Token));
+                ClaimsIdentity claimsIdentity = new(claims, JwtBearerDefaults.AuthenticationScheme);
+                AuthenticationProperties authProps = new()
+                {
+                    ExpiresUtc = tokenModel.ExpireDate,
+                    IsPersistent = true
+                };
+                await HttpContext.SignInAsync(JwtBearerDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity), authProps);
+                return RedirectToAction("Index", "MainPage");
+            }
+        }
+        return View();
+    }

@@ -17,11 +17,13 @@ public class LoginController : Controller
 {
     private readonly IHttpClientFactory _httpClientFactory;
     private readonly ILoginService _loginService;
+    private readonly IIdentityService _identityService;
 
-    public LoginController(IHttpClientFactory httpClientFactory, ILoginService loginService)
+    public LoginController(IHttpClientFactory httpClientFactory, ILoginService loginService, IIdentityService identityService)
     {
         _httpClientFactory = httpClientFactory;
         _loginService = loginService;
+        _identityService = identityService;
     }
     [HttpGet]
     public IActionResult LoginForm()
@@ -29,37 +31,10 @@ public class LoginController : Controller
         return View();
     }
     [HttpPost]
-    public async Task<IActionResult> LoginForm(CreateLoginDto createLoginDto)
+    public async Task<IActionResult> LoginForm(SignInDto signInDto)
     {
-        HttpClient client = _httpClientFactory.CreateClient();
-        string jsonData = JsonSerializer.Serialize(createLoginDto);
-        StringContent content = new(jsonData, Encoding.UTF8, "application/json");
-        HttpResponseMessage responseMessage = await client.PostAsync("http://localhost:5001/api/logins", content);
-        if (responseMessage.IsSuccessStatusCode)
-        {
-            string data = await responseMessage.Content.ReadAsStringAsync();
-            JwtResponseModel? tokenModel = JsonSerializer.Deserialize<JwtResponseModel>(data, new JsonSerializerOptions
-            {
-                PropertyNamingPolicy = JsonNamingPolicy.CamelCase
-            });
-            if (tokenModel != null)
-            {
-                JwtSecurityTokenHandler tokenHandler = new JwtSecurityTokenHandler();
-                JwtSecurityToken token = tokenHandler.ReadJwtToken(tokenModel.Token);
-                List<Claim> claims = token.Claims.ToList();
-
-                claims.Add(new Claim("e_ticaretjwt", tokenModel.Token));
-                ClaimsIdentity claimsIdentity = new(claims, JwtBearerDefaults.AuthenticationScheme);
-                AuthenticationProperties authProps = new()
-                {
-                    ExpiresUtc = tokenModel.ExpireDate,
-                    IsPersistent = true
-                };
-                await HttpContext.SignInAsync(JwtBearerDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity), authProps);
-                return RedirectToAction("Index", "MainPage");
-            }
-        }
-        return View();
+        await _identityService.SignIn(signInDto);
+        return RedirectToAction("Index", "User");
     }
 }
 
