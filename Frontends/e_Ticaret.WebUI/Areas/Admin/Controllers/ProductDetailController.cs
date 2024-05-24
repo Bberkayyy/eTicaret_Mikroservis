@@ -1,4 +1,6 @@
-﻿using e_Ticaret.WebUIDtos.CatalogDtos.ProductDetailDtos;
+﻿using e_Ticaret.WebUI.Services.CatalogServices.ProductDetailServices;
+using e_Ticaret.WebUI.Services.CatalogServices.ProductServices;
+using e_Ticaret.WebUIDtos.CatalogDtos.ProductDetailDtos;
 using e_Ticaret.WebUIDtos.CatalogDtos.ProductDtos;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
@@ -10,11 +12,13 @@ namespace e_Ticaret.WebUI.Areas.Admin.Controllers;
 [Route("admin/productdetail")]
 public class ProductDetailController : Controller
 {
-    private readonly IHttpClientFactory _httpClientFactory;
+    private readonly IProductDetailService _productDetailService;
+    private readonly IProductService _productService;
 
-    public ProductDetailController(IHttpClientFactory httpClientFactory)
+    public ProductDetailController(IProductDetailService productDetailService, IProductService productService)
     {
-        _httpClientFactory = httpClientFactory;
+        _productDetailService = productDetailService;
+        _productService = productService;
     }
 
     [Route("details/{productId}")]
@@ -23,16 +27,9 @@ public class ProductDetailController : Controller
         GetProductDetailViewbagList();
         ViewBag.productName = await GetProductName(productId);
         ViewBag.productId = productId;
-        HttpClient client = _httpClientFactory.CreateClient();
-        HttpResponseMessage responseMessage = await client.GetAsync("https://localhost:7070/api/productdetails/getwithrelationshipsbyproductid?productId=" + productId);
-        if (responseMessage.IsSuccessStatusCode)
-        {
-            string jsonData = await responseMessage.Content.ReadAsStringAsync();
-            ResultProductDetailWithRelationshipsByProductIdDto? value = JsonConvert.DeserializeObject<ResultProductDetailWithRelationshipsByProductIdDto>(jsonData);
-            ViewBag.v3 = $"{value.ProductName} Ürününe Ait Açıklama ve Bilgi";
-            return View(value);
-        }
-        return View();
+        ResultProductDetailWithRelationshipsByProductIdDto? value = await _productDetailService.GetProductDetailWithRelationshipsByProductIdAsync(productId);
+        ViewBag.v3 = $"{value.ProductName} Ürününe Ait Açıklama ve Bilgi";
+        return View(value);
     }
     [HttpGet]
     [Route("createdetails/{productId}")]
@@ -48,24 +45,14 @@ public class ProductDetailController : Controller
     [Route("createdetails/{productId}")]
     public async Task<IActionResult> CreateProductDetail(CreateProductDetailDto createProductDetailDto)
     {
-        HttpClient client = _httpClientFactory.CreateClient();
-        string jsonData = JsonConvert.SerializeObject(createProductDetailDto);
-        StringContent content = new(jsonData, Encoding.UTF8, "application/json");
-        HttpResponseMessage responseMessage = await client.PostAsync("https://localhost:7070/api/productdetails", content);
-        if (responseMessage.IsSuccessStatusCode)
-            return RedirectToAction("details", "productdetail", new { area = "admin", productId = createProductDetailDto.ProductId });
-        return View();
+        await _productDetailService.CreateProductDetailAsync(createProductDetailDto);
+        return RedirectToAction("details", "productdetail", new { area = "admin", productId = createProductDetailDto.ProductId });
     }
     [Route("deletedetails/{id}")]
     public async Task<IActionResult> DeleteProductDetail(string id)
     {
-        HttpClient client = _httpClientFactory.CreateClient();
-        HttpResponseMessage responseMessage = await client.DeleteAsync("https://localhost:7070/api/productdetails?id=" + id);
-        if (responseMessage.IsSuccessStatusCode)
-        {
-            return RedirectToAction("index", "product", new { area = "admin" });
-        }
-        return View();
+        await _productDetailService.DeleteProductDetailAsync(id);
+        return RedirectToAction("index", "product", new { area = "admin" });
     }
     [HttpGet]
     [Route("updatedetails/{id}")]
@@ -73,29 +60,17 @@ public class ProductDetailController : Controller
     {
         GetProductDetailViewbagList();
         ViewBag.v3 = "Ürün Açıklama ve Bilgi Güncelleme Sayfası";
-        HttpClient client = _httpClientFactory.CreateClient();
-        HttpResponseMessage responseMessage = await client.GetAsync("https://localhost:7070/api/productdetails/" + id);
-        if (responseMessage.IsSuccessStatusCode)
-        {
-            string jsonData = await responseMessage.Content.ReadAsStringAsync();
-            UpdateProductDetailDto? value = JsonConvert.DeserializeObject<UpdateProductDetailDto>(jsonData);
-            ViewBag.productIdForUpdate = value.ProductId;
-            ViewBag.productNameForUpdate = await GetProductName(value.ProductId);
-            return View(value);
-        }
-        return View();
+        UpdateProductDetailDto? value = await _productDetailService.GetProductDetailForUpdateAsync(id);
+        ViewBag.productIdForUpdate = value.ProductId;
+        ViewBag.productNameForUpdate = await GetProductName(value.ProductId);
+        return View(value);
     }
     [HttpPost]
     [Route("updatedetails/{id}")]
     public async Task<IActionResult> UpdateProductDetail(UpdateProductDetailDto updateProductDetailDto)
     {
-        HttpClient client = _httpClientFactory.CreateClient();
-        string jsonData = JsonConvert.SerializeObject(updateProductDetailDto);
-        StringContent content = new(jsonData, Encoding.UTF8, "application/json");
-        HttpResponseMessage responseMessage = await client.PutAsync("https://localhost:7070/api/productdetails", content);
-        if (responseMessage.IsSuccessStatusCode)
-            return RedirectToAction("details", "productdetail", new { area = "admin", productId = updateProductDetailDto.ProductId });
-        return View();
+        await _productDetailService.UpdateProductDetailAsync(updateProductDetailDto);
+        return RedirectToAction("details", "productdetail", new { area = "admin", productId = updateProductDetailDto.ProductId });
     }
     private void GetProductDetailViewbagList()
     {
@@ -104,10 +79,7 @@ public class ProductDetailController : Controller
     }
     private async Task<string> GetProductName(string id)
     {
-        HttpClient client = _httpClientFactory.CreateClient();
-        HttpResponseMessage responseMessage = await client.GetAsync("https://localhost:7070/api/products/" + id);
-        string jsonData = await responseMessage.Content.ReadAsStringAsync();
-        ResultProductDto? value = JsonConvert.DeserializeObject<ResultProductDto>(jsonData);
+        GetProductByIdDto? value = await _productService.GetProductByIdAsync(id);
         return value.Name;
     }
 }

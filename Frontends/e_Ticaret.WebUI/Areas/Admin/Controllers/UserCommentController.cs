@@ -1,4 +1,6 @@
-﻿using e_Ticaret.WebUIDtos.CatalogDtos.ProductDtos;
+﻿using e_Ticaret.WebUI.Services.CatalogServices.ProductServices;
+using e_Ticaret.WebUI.Services.CatalogServices.UserCommentServices;
+using e_Ticaret.WebUIDtos.CatalogDtos.ProductDtos;
 using e_Ticaret.WebUIDtos.CommentDtos.UserCommentDtos;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
@@ -11,26 +13,22 @@ namespace e_Ticaret.WebUI.Areas.Admin.Controllers;
 [Route("admin/usercomment")]
 public class UserCommentController : Controller
 {
-    private readonly IHttpClientFactory _httpClientFactory;
+    private readonly IUserCommentService _userCommentService;
+    private readonly IProductService _productService;
 
-    public UserCommentController(IHttpClientFactory httpClientFactory)
+    public UserCommentController(IUserCommentService userCommentService, IProductService productService)
     {
-        _httpClientFactory = httpClientFactory;
+        _userCommentService = userCommentService;
+        _productService = productService;
     }
+
     [Route("index")]
     public async Task<IActionResult> Index()
     {
         GetUserCommentViewbagList();
         ViewBag.v3 = "Yorum Listesi";
-        HttpClient client = _httpClientFactory.CreateClient();
-        HttpResponseMessage responseMessage = await client.GetAsync("https://localhost:7075/api/comments");
-        if (responseMessage.IsSuccessStatusCode)
-        {
-            string jsonData = await responseMessage.Content.ReadAsStringAsync();
-            IEnumerable<ResultUserCommentDto>? values = JsonConvert.DeserializeObject<IEnumerable<ResultUserCommentDto>>(jsonData);
-            return View(values);
-        }
-        return View();
+        IEnumerable<ResultUserCommentDto>? values = await _userCommentService.GetAllUserCommentAsync();
+        return View(values);
     }
     [Route("comment/{productId}")]
     public async Task<IActionResult> Comments(string productId)
@@ -40,25 +38,15 @@ public class UserCommentController : Controller
         string productName = await GetProductName(productId);
         ViewBag.productName = productName;
         ViewBag.productId = productId;
-        ViewBag.v3 = $"{productName} Ürününe Ait Yorumlar";
-        HttpClient client = _httpClientFactory.CreateClient();
-        HttpResponseMessage responseMessage = await client.GetAsync("https://localhost:7075/api/comments/commentlistbyproductid?id="+productId);
-        if (responseMessage.IsSuccessStatusCode)
-        {
-            string jsonData = await responseMessage.Content.ReadAsStringAsync();
-            IEnumerable<ResultUserCommentDto>? values = JsonConvert.DeserializeObject<IEnumerable<ResultUserCommentDto>>(jsonData);
-            return View(values);
-        }
-        return View();
+        ViewBag.v3 = $"{productName} Ürününe Ait Yorumlar"; ;
+        IEnumerable<ResultUserCommentDto>? values = await _userCommentService.GetUserCommentsByProductIdAsync(productId);
+        return View(values);
     }
     [Route("deleteusercomment/{id}")]
     public async Task<IActionResult> DeleteUserComment(string id)
     {
-        HttpClient client = _httpClientFactory.CreateClient();
-        HttpResponseMessage responseMessage = await client.DeleteAsync("https://localhost:7075/api/comments?id=" + id);
-        if (responseMessage.IsSuccessStatusCode)
-            return RedirectToAction("index", "usercomment", new { area = "admin" });
-        return View();
+        await _userCommentService.DeleteUserCommentAsync(id);
+        return RedirectToAction("index", "usercomment", new { area = "admin" });
     }
     [HttpGet]
     [Route("updateusercomment/{id}")]
@@ -66,27 +54,15 @@ public class UserCommentController : Controller
     {
         GetUserCommentViewbagList();
         ViewBag.v3 = "Yorum Güncelleme Sayfası";
-        HttpClient client = _httpClientFactory.CreateClient();
-        HttpResponseMessage responseMessage = await client.GetAsync("https://localhost:7075/api/comments/" + id);
-        if (responseMessage.IsSuccessStatusCode)
-        {
-            string jsonData = await responseMessage.Content.ReadAsStringAsync();
-            UpdateUserCommentDto? value = JsonConvert.DeserializeObject<UpdateUserCommentDto>(jsonData);
-            return View(value);
-        }
-        return View();
+        UpdateUserCommentDto? value = await _userCommentService.GetUserCommentForUpdateAsync(id);
+        return View(value);
     }
     [HttpPost]
     [Route("updateusercomment/{id}")]
     public async Task<IActionResult> UpdateUserComment(UpdateUserCommentDto updateUserCommentDto)
     {
-        HttpClient client = _httpClientFactory.CreateClient();
-        string jsonData = JsonConvert.SerializeObject(updateUserCommentDto);
-        StringContent content = new(jsonData, Encoding.UTF8, "application/json");
-        HttpResponseMessage responseMessage = await client.PutAsync("https://localhost:7075/api/comments", content);
-        if (responseMessage.IsSuccessStatusCode)
-            return RedirectToAction("index", "usercomment", new { area = "admin" });
-        return View();
+        await _userCommentService.UpdateUserCommentAsync(updateUserCommentDto);
+        return RedirectToAction("index", "usercomment", new { area = "admin" });
     }
     private void GetUserCommentViewbagList()
     {
@@ -95,10 +71,7 @@ public class UserCommentController : Controller
     }
     private async Task<string> GetProductName(string id)
     {
-        HttpClient client = _httpClientFactory.CreateClient();
-        HttpResponseMessage responseMessage = await client.GetAsync("https://localhost:7070/api/products/" + id);
-        string jsonData = await responseMessage.Content.ReadAsStringAsync();
-        ResultProductDto? value = JsonConvert.DeserializeObject<ResultProductDto>(jsonData);
+        GetProductByIdDto? value = await _productService.GetProductByIdAsync(id);
         return value.Name;
     }
 }

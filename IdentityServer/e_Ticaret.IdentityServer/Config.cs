@@ -53,7 +53,7 @@ public static class Config
             ClientName="e_Ticaret Visitor User",
             AllowedGrantTypes=GrantTypes.ClientCredentials,
             ClientSecrets={new Secret("e_ticaretsecret".Sha256())},
-            AllowedScopes={ "CatalogFullPermission", "OcelotFullPermission", "CommentFullPermission", "ImageFullPermission" }
+            AllowedScopes={ "CatalogFullPermission", "OcelotFullPermission", "CommentFullPermission", "ImageFullPermission", IdentityServerConstants.LocalApi.ScopeName, }
         },
         new Client
         {

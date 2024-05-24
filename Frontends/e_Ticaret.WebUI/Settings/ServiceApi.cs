@@ -2,5 +2,5 @@
 
 public class ServiceApi
 {
-    public string ServiceName { get; set; }
+    public string Path { get; set; }
 }

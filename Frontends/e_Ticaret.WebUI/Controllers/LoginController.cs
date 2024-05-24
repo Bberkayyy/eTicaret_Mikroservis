@@ -15,14 +15,10 @@ namespace e_Ticaret.WebUI.Controllers;
 
 public class LoginController : Controller
 {
-    private readonly IHttpClientFactory _httpClientFactory;
-    private readonly ILoginService _loginService;
     private readonly IIdentityService _identityService;
 
-    public LoginController(IHttpClientFactory httpClientFactory, ILoginService loginService, IIdentityService identityService)
+    public LoginController(IIdentityService identityService)
     {
-        _httpClientFactory = httpClientFactory;
-        _loginService = loginService;
         _identityService = identityService;
     }
     [HttpGet]
@@ -34,7 +30,7 @@ public class LoginController : Controller
     public async Task<IActionResult> LoginForm(SignInDto signInDto)
     {
         await _identityService.SignIn(signInDto);
-        return RedirectToAction("Index", "User");
+        return RedirectToAction("Index", "MainPage");
     }
 }
 

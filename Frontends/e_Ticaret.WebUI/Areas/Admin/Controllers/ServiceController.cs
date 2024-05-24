@@ -1,4 +1,5 @@
-﻿using e_Ticaret.WebUIDtos.CatalogDtos.ServiceDtos;
+﻿using e_Ticaret.WebUI.Services.CatalogServices.ServiceServices;
+using e_Ticaret.WebUIDtos.CatalogDtos.ServiceDtos;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System.Text;
@@ -9,26 +10,20 @@ namespace e_Ticaret.WebUI.Areas.Admin.Controllers;
 [Route("admin/service")]
 public class ServiceController : Controller
 {
-    private readonly IHttpClientFactory _httpClientFactory;
+    private readonly IServiceService _serviceService;
 
-    public ServiceController(IHttpClientFactory httpClientFactory)
+    public ServiceController(IServiceService serviceService)
     {
-        _httpClientFactory = httpClientFactory;
+        _serviceService = serviceService;
     }
+
     [Route("index")]
     public async Task<IActionResult> Index()
     {
         GetServiceViewbagList();
         ViewBag.v3 = "Hizmet Listesi";
-        HttpClient client = _httpClientFactory.CreateClient();
-        HttpResponseMessage responseMessage = await client.GetAsync("https://localhost:7070/api/services");
-        if (responseMessage.IsSuccessStatusCode)
-        {
-            string jsonData = await responseMessage.Content.ReadAsStringAsync();
-            IEnumerable<ResultServiceDto>? values = JsonConvert.DeserializeObject<IEnumerable<ResultServiceDto>>(jsonData);
-            return View(values);
-        }
-        return View();
+        IEnumerable<ResultServiceDto>? values = await _serviceService.GetAllServiceAsync();
+        return View(values);
     }
     [HttpGet]
     [Route("createservice")]
@@ -42,22 +37,14 @@ public class ServiceController : Controller
     [Route("createservice")]
     public async Task<IActionResult> CreateService(CreateServiceDto createServiceDto)
     {
-        HttpClient client = _httpClientFactory.CreateClient();
-        string jsonData = JsonConvert.SerializeObject(createServiceDto);
-        StringContent content = new(jsonData, Encoding.UTF8, "application/json");
-        HttpResponseMessage responseMessage = await client.PostAsync("https://localhost:7070/api/services", content);
-        if (responseMessage.IsSuccessStatusCode)
-            return RedirectToAction("index", "service", new { area = "admin" });
-        return View();
+        await _serviceService.CreateServiceAsync(createServiceDto);
+        return RedirectToAction("index", "service", new { area = "admin" });
     }
     [Route("deleteservice/{id}")]
     public async Task<IActionResult> DeleteService(string id)
     {
-        HttpClient client = _httpClientFactory.CreateClient();
-        HttpResponseMessage responseMessage = await client.DeleteAsync("https://localhost:7070/api/services?id=" + id);
-        if (responseMessage.IsSuccessStatusCode)
-            return RedirectToAction("index", "service", new { area = "admin" });
-        return View();
+        await _serviceService.DeleteServiceAsync(id);
+        return RedirectToAction("index", "service", new { area = "admin" });
     }
     [HttpGet]
     [Route("updateservice/{id}")]
@@ -65,27 +52,15 @@ public class ServiceController : Controller
     {
         GetServiceViewbagList();
         ViewBag.v3 = "Hizmet Güncelleme Sayfası";
-        HttpClient client = _httpClientFactory.CreateClient();
-        HttpResponseMessage responseMessage = await client.GetAsync("https://localhost:7070/api/services/" + id);
-        if (responseMessage.IsSuccessStatusCode)
-        {
-            string jsonData = await responseMessage.Content.ReadAsStringAsync();
-            UpdateServiceDto? value = JsonConvert.DeserializeObject<UpdateServiceDto>(jsonData);
-            return View(value);
-        }
-        return View();
+        UpdateServiceDto? value = await _serviceService.GetServiceForUpdateAsync(id);
+        return View(value);
     }
     [HttpPost]
     [Route("updateservice/{id}")]
     public async Task<IActionResult> UpdateService(UpdateServiceDto updateServiceDto)
     {
-        HttpClient client = _httpClientFactory.CreateClient();
-        string jsonData = JsonConvert.SerializeObject(updateServiceDto);
-        StringContent content = new(jsonData, Encoding.UTF8, "application/json");
-        HttpResponseMessage responseMessage = await client.PutAsync("https://localhost:7070/api/services", content);
-        if (responseMessage.IsSuccessStatusCode)
-            return RedirectToAction("index", "service", new { area = "admin" });
-        return View();
+        await _serviceService.UpdateServiceAsync(updateServiceDto);
+        return RedirectToAction("index", "service", new { area = "admin" });
     }
     private void GetServiceViewbagList()
     {
