@@ -1,6 +1,6 @@
 ﻿using e_Ticaret.WebUIDtos.CommentDtos.UserCommentDtos;
 
-namespace e_Ticaret.WebUI.Services.CatalogServices.UserCommentServices;
+namespace e_Ticaret.WebUI.Services.CommentServices.UserCommentServices;
 
 public class UserCommentService : IUserCommentService
 {
@@ -13,7 +13,7 @@ public class UserCommentService : IUserCommentService
 
     public async Task CreateUserCommentAsync(CreateUserCommentDto createUserCommentDto)
     {
-        await _httpClient.PostAsJsonAsync<CreateUserCommentDto>("comment/comments", createUserCommentDto);
+        await _httpClient.PostAsJsonAsync("comment/comments", createUserCommentDto);
     }
 
     public async Task DeleteUserCommentAsync(string id)
@@ -44,6 +44,6 @@ public class UserCommentService : IUserCommentService
 
     public async Task UpdateUserCommentAsync(UpdateUserCommentDto updateUserCommentDto)
     {
-        await _httpClient.PutAsJsonAsync<UpdateUserCommentDto>("comment/comments", updateUserCommentDto);
+        await _httpClient.PutAsJsonAsync("comment/comments", updateUserCommentDto);
     }
 }

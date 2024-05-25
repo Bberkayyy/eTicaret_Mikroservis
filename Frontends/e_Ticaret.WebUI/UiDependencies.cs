@@ -11,7 +11,7 @@ using e_Ticaret.WebUI.Services.CatalogServices.ProductImageServices;
 using e_Ticaret.WebUI.Services.CatalogServices.ProductServices;
 using e_Ticaret.WebUI.Services.CatalogServices.ServiceServices;
 using e_Ticaret.WebUI.Services.CatalogServices.SpecialOfferServices;
-using e_Ticaret.WebUI.Services.CatalogServices.UserCommentServices;
+using e_Ticaret.WebUI.Services.CommentServices.UserCommentServices;
 using e_Ticaret.WebUI.Services.Concrete;
 using e_Ticaret.WebUI.Settings;
 using Microsoft.AspNetCore.Authentication.Cookies;

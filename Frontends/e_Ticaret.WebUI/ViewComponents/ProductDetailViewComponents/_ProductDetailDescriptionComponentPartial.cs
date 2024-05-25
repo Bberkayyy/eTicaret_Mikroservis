@@ -1,4 +1,5 @@
-﻿using e_Ticaret.WebUIDtos.CatalogDtos.ProductDetailDtos;
+﻿using e_Ticaret.WebUI.Services.CatalogServices.ProductDetailServices;
+using e_Ticaret.WebUIDtos.CatalogDtos.ProductDetailDtos;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 
@@ -6,23 +7,16 @@ namespace e_Ticaret.WebUI.ViewComponents.ProductDetailViewComponents;
 
 public class _ProductDetailDescriptionComponentPartial : ViewComponent
 {
-    private readonly IHttpClientFactory _httpClientFactory;
+    private readonly IProductDetailService _productDetailService;
 
-    public _ProductDetailDescriptionComponentPartial(IHttpClientFactory httpClientFactory)
+    public _ProductDetailDescriptionComponentPartial(IProductDetailService productDetailService)
     {
-        _httpClientFactory = httpClientFactory;
+        _productDetailService = productDetailService;
     }
 
     public async Task<IViewComponentResult> InvokeAsync(string productId)
     {
-        HttpClient client = _httpClientFactory.CreateClient();
-        HttpResponseMessage responseMessage = await client.GetAsync("https://localhost:7070/api/productdetails/getwithrelationshipsbyproductid?productId=" + productId);
-        if (responseMessage.IsSuccessStatusCode)
-        {
-            string jsonData = await responseMessage.Content.ReadAsStringAsync();
-            ResultProductDetailWithRelationshipsByProductIdDto? value = JsonConvert.DeserializeObject<ResultProductDetailWithRelationshipsByProductIdDto>(jsonData);
-            return View(value);
-        }
-        return View();
+        ResultProductDetailWithRelationshipsByProductIdDto? value = await _productDetailService.GetProductDetailWithRelationshipsByProductIdAsync(productId);
+        return View(value);
     }
 }

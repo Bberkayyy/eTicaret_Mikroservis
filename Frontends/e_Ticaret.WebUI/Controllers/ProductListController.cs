@@ -1,4 +1,6 @@
-﻿using e_Ticaret.WebUIDtos.CatalogDtos.CategoryDtos;
+﻿using e_Ticaret.WebUI.Services.CatalogServices.CategoryServices;
+using e_Ticaret.WebUI.Services.CommentServices.UserCommentServices;
+using e_Ticaret.WebUIDtos.CatalogDtos.CategoryDtos;
 using e_Ticaret.WebUIDtos.CommentDtos.UserCommentDtos;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
@@ -8,11 +10,13 @@ namespace e_Ticaret.WebUI.Controllers;
 
 public class ProductListController : Controller
 {
-    private readonly IHttpClientFactory _httpClientFactory;
+    private readonly ICategoryService _categoryService;
+    private readonly IUserCommentService _userCommentService;
 
-    public ProductListController(IHttpClientFactory httpClientFactory)
+    public ProductListController(ICategoryService categoryService, IUserCommentService userCommentService)
     {
-        _httpClientFactory = httpClientFactory;
+        _categoryService = categoryService;
+        _userCommentService = userCommentService;
     }
 
     public IActionResult ProductList()
@@ -33,20 +37,12 @@ public class ProductListController : Controller
     [HttpPost]
     public async Task<IActionResult> AddComment(CreateUserCommentDto createUserCommentDto)
     {
-        HttpClient client = _httpClientFactory.CreateClient();
-        string jsonData = JsonConvert.SerializeObject(createUserCommentDto);
-        StringContent content = new(jsonData, Encoding.UTF8, "application/json");
-        HttpResponseMessage responseMessage = await client.PostAsync("https://localhost:7075/api/comments", content);
-        if (responseMessage.IsSuccessStatusCode)
-            return RedirectToAction("productdetail", "productlist", new { id = createUserCommentDto.ProductId });
-        return View();
+        await _userCommentService.CreateUserCommentAsync(createUserCommentDto);
+        return RedirectToAction("productdetail", "productlist", new { id = createUserCommentDto.ProductId });
     }
     private async Task<string> GetCategoryName(string id)
     {
-        HttpClient client = _httpClientFactory.CreateClient();
-        HttpResponseMessage responseMessage = await client.GetAsync("https://localhost:7070/api/categories/" + id);
-        string jsonData = await responseMessage.Content.ReadAsStringAsync();
-        ResultCategoryDto? value = JsonConvert.DeserializeObject<ResultCategoryDto>(jsonData);
+        GetCategoryByIdDto? value = await _categoryService.GetCategoryById(id);
         return value.Name;
     }
 }

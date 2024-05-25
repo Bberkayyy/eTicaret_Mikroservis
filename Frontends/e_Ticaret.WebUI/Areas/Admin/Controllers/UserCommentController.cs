@@ -1,5 +1,5 @@
 ﻿using e_Ticaret.WebUI.Services.CatalogServices.ProductServices;
-using e_Ticaret.WebUI.Services.CatalogServices.UserCommentServices;
+using e_Ticaret.WebUI.Services.CommentServices.UserCommentServices;
 using e_Ticaret.WebUIDtos.CatalogDtos.ProductDtos;
 using e_Ticaret.WebUIDtos.CommentDtos.UserCommentDtos;
 using Microsoft.AspNetCore.Mvc;

@@ -1,4 +1,5 @@
-﻿using e_Ticaret.WebUIDtos.CatalogDtos.AboutDtos;
+﻿using e_Ticaret.WebUI.Services.CatalogServices.AboutServices;
+using e_Ticaret.WebUIDtos.CatalogDtos.AboutDtos;
 using e_Ticaret.WebUIDtos.CatalogDtos.BrandDtos;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
@@ -7,23 +8,16 @@ namespace e_Ticaret.WebUI.ViewComponents.UILayoutViewComponents;
 
 public class _UILayoutFooterAboutComponentPartial : ViewComponent
 {
-    private readonly IHttpClientFactory _httpClientFactory;
+    private readonly IAboutService _aboutService;
 
-    public _UILayoutFooterAboutComponentPartial(IHttpClientFactory httpClientFactory)
+    public _UILayoutFooterAboutComponentPartial(IAboutService aboutService)
     {
-        _httpClientFactory = httpClientFactory;
+        _aboutService = aboutService;
     }
 
     public async Task<IViewComponentResult> InvokeAsync()
     {
-        HttpClient client = _httpClientFactory.CreateClient();
-        HttpResponseMessage responseMessage = await client.GetAsync("https://localhost:7070/api/abouts");
-        if (responseMessage.IsSuccessStatusCode)
-        {
-            string jsonData = await responseMessage.Content.ReadAsStringAsync();
-            IEnumerable<ResultAboutDto>? values = JsonConvert.DeserializeObject<IEnumerable<ResultAboutDto>>(jsonData);
-            return View(values);
-        }
-        return View();
+        IEnumerable<ResultAboutDto>? values = await _aboutService.GetAllAboutAsync();
+        return View(values);
     }
 }

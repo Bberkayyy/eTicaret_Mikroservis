@@ -1,4 +1,5 @@
-﻿using e_Ticaret.WebUIDtos.CatalogDtos.FeatureSliderDtos;
+﻿using e_Ticaret.WebUI.Services.CatalogServices.FeatureSliderServices;
+using e_Ticaret.WebUIDtos.CatalogDtos.FeatureSliderDtos;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 
@@ -6,23 +7,16 @@ namespace e_Ticaret.WebUI.ViewComponents.MainPageViewComponents;
 
 public class _MainPageCarouselComponentPartial : ViewComponent
 {
-    private readonly IHttpClientFactory _httpClientFactory;
+    private readonly IFeatureSliderService _featureSliderService;
 
-    public _MainPageCarouselComponentPartial(IHttpClientFactory httpClientFactory)
+    public _MainPageCarouselComponentPartial(IFeatureSliderService featureSliderService)
     {
-        _httpClientFactory = httpClientFactory;
+        _featureSliderService = featureSliderService;
     }
 
     public async Task<IViewComponentResult> InvokeAsync()
     {
-        HttpClient client = _httpClientFactory.CreateClient();
-        HttpResponseMessage responseMessage = await client.GetAsync("https://localhost:7070/api/featuresliders");
-        if (responseMessage.IsSuccessStatusCode)
-        {
-            string jsonData = await responseMessage.Content.ReadAsStringAsync();
-            IEnumerable<ResultFeatureSliderDto>? values = JsonConvert.DeserializeObject<IEnumerable<ResultFeatureSliderDto>>(jsonData);
-            return View(values);
-        }
-        return View();
+        IEnumerable<ResultFeatureSliderDto>? values = await _featureSliderService.GetAllFeatureSliderAsync();
+        return View(values);
     }
 }

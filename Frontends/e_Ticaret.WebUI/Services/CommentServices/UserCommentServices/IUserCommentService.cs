@@ -1,6 +1,6 @@
 ﻿using e_Ticaret.WebUIDtos.CommentDtos.UserCommentDtos;
 
-namespace e_Ticaret.WebUI.Services.CatalogServices.UserCommentServices;
+namespace e_Ticaret.WebUI.Services.CommentServices.UserCommentServices;
 
 public interface IUserCommentService
 {

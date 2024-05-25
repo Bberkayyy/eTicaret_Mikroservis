@@ -1,4 +1,5 @@
-﻿using e_Ticaret.WebUIDtos.CatalogDtos.FeatureSliderDtos;
+﻿using e_Ticaret.WebUI.Services.CatalogServices.ServiceServices;
+using e_Ticaret.WebUIDtos.CatalogDtos.FeatureSliderDtos;
 using e_Ticaret.WebUIDtos.CatalogDtos.ServiceDtos;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
@@ -7,23 +8,16 @@ namespace e_Ticaret.WebUI.ViewComponents.MainPageViewComponents;
 
 public class _MainPageServicesComponentPartial : ViewComponent
 {
-    private readonly IHttpClientFactory _httpClientFactory;
+    private readonly IServiceService _serviceService;
 
-    public _MainPageServicesComponentPartial(IHttpClientFactory httpClientFactory)
+    public _MainPageServicesComponentPartial(IServiceService serviceService)
     {
-        _httpClientFactory = httpClientFactory;
+        _serviceService = serviceService;
     }
 
     public async Task<IViewComponentResult> InvokeAsync()
     {
-        HttpClient client = _httpClientFactory.CreateClient();
-        HttpResponseMessage responseMessage = await client.GetAsync("https://localhost:7070/api/services");
-        if (responseMessage.IsSuccessStatusCode)
-        {
-            string jsonData = await responseMessage.Content.ReadAsStringAsync();
-            IEnumerable<ResultServiceDto>? values = JsonConvert.DeserializeObject<IEnumerable<ResultServiceDto>>(jsonData);
-            return View(values);
-        }
-        return View();
+        IEnumerable<ResultServiceDto>? values = await _serviceService.GetAllServiceAsync();
+        return View(values);
     }
 }
