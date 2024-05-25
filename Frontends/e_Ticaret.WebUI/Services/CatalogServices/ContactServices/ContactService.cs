@@ -13,29 +13,29 @@ public class ContactService : IContactService
 
     public async Task ChangeIsReadToTrueAsync(string id)
     {
-        await _httpClient.GetAsync("catalog/contacts/isreadtotrue?id=" + id);
+        await _httpClient.GetAsync("contacts/isreadtotrue?id=" + id);
     }
 
     public async Task CreateContactAsync(CreateContactDto createContactDto)
     {
-        await _httpClient.PostAsJsonAsync<CreateContactDto>("catalog/contacts", createContactDto);
+        await _httpClient.PostAsJsonAsync<CreateContactDto>("contacts", createContactDto);
     }
 
     public async Task DeleteContactAsync(string id)
     {
-        await _httpClient.DeleteAsync("catalog/contacts?id=" + id);
+        await _httpClient.DeleteAsync("contacts?id=" + id);
     }
 
     public async Task<List<ResultContactDto>> GetAllContactAsync()
     {
-        HttpResponseMessage responseMessage = await _httpClient.GetAsync("catalog/contacts");
+        HttpResponseMessage responseMessage = await _httpClient.GetAsync("contacts");
         List<ResultContactDto>? values = await responseMessage.Content.ReadFromJsonAsync<List<ResultContactDto>>();
         return values;
     }
 
     public async Task<ResultContactDto> GetContactForDetailAsync(string id)
     {
-        HttpResponseMessage responseMessage = await _httpClient.GetAsync("catalog/contacts/" + id);
+        HttpResponseMessage responseMessage = await _httpClient.GetAsync("contacts/" + id);
         ResultContactDto? value = await responseMessage.Content.ReadFromJsonAsync<ResultContactDto>();
         return value;
     }

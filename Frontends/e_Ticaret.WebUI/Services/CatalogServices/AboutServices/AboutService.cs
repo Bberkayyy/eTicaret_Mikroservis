@@ -13,30 +13,30 @@ public class AboutService : IAboutService
 
     public async Task CreateAboutAsync(CreateAboutDto createAboutDto)
     {
-        await _httpClient.PostAsJsonAsync<CreateAboutDto>("catalog/abouts", createAboutDto);
+        await _httpClient.PostAsJsonAsync<CreateAboutDto>("abouts", createAboutDto);
     }
 
     public async Task DeleteAboutAsync(string id)
     {
-        await _httpClient.DeleteAsync("catalog/abouts?id=" + id);
+        await _httpClient.DeleteAsync("abouts?id=" + id);
     }
 
     public async Task<UpdateAboutDto> GetAboutForUpdateAsync(string id)
     {
-        HttpResponseMessage responseMessage = await _httpClient.GetAsync("catalog/abouts/" + id);
+        HttpResponseMessage responseMessage = await _httpClient.GetAsync("abouts/" + id);
         UpdateAboutDto? value = await responseMessage.Content.ReadFromJsonAsync<UpdateAboutDto>();
         return value;
     }
 
     public async Task<List<ResultAboutDto>> GetAllAboutAsync()
     {
-        HttpResponseMessage responseMessage = await _httpClient.GetAsync("catalog/abouts");
+        HttpResponseMessage responseMessage = await _httpClient.GetAsync("abouts");
         List<ResultAboutDto>? values = await responseMessage.Content.ReadFromJsonAsync<List<ResultAboutDto>>();
         return values;
     }
 
     public async Task UpdateAboutAsync(UpdateAboutDto updateAboutDto)
     {
-        await _httpClient.PutAsJsonAsync<UpdateAboutDto>("catalog/abouts", updateAboutDto);
+        await _httpClient.PutAsJsonAsync<UpdateAboutDto>("abouts", updateAboutDto);
     }
 }

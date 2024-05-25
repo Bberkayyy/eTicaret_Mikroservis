@@ -13,30 +13,30 @@ public class SpecialOfferService : ISpecialOfferService
 
     public async Task CreateSpecialOfferAsync(CreateSpecialOfferDto createSpecialOfferDto)
     {
-        await _httpClient.PostAsJsonAsync<CreateSpecialOfferDto>("catalog/specialoffers", createSpecialOfferDto);
+        await _httpClient.PostAsJsonAsync<CreateSpecialOfferDto>("specialoffers", createSpecialOfferDto);
     }
 
     public async Task DeleteSpecialOfferAsync(string id)
     {
-        await _httpClient.DeleteAsync("catalog/specialoffers?id=" + id);
+        await _httpClient.DeleteAsync("specialoffers?id=" + id);
     }
 
     public async Task<List<ResultSpecialOfferDto>> GetAllSpecialOfferAsync()
     {
-        HttpResponseMessage responseMessage = await _httpClient.GetAsync("catalog/specialoffers");
+        HttpResponseMessage responseMessage = await _httpClient.GetAsync("specialoffers");
         List<ResultSpecialOfferDto>? values = await responseMessage.Content.ReadFromJsonAsync<List<ResultSpecialOfferDto>>();
         return values;
     }
 
     public async Task<UpdateSpecialOfferDto> GetSpecialOfferForUpdateAsync(string id)
     {
-        HttpResponseMessage responseMessage = await _httpClient.GetAsync("catalog/specialoffers/" + id);
+        HttpResponseMessage responseMessage = await _httpClient.GetAsync("specialoffers/" + id);
         UpdateSpecialOfferDto? value = await responseMessage.Content.ReadFromJsonAsync<UpdateSpecialOfferDto>();
         return value;
     }
 
     public async Task UpdateSpecialOfferAsync(UpdateSpecialOfferDto updateSpecialOfferDto)
     {
-        await _httpClient.PutAsJsonAsync<UpdateSpecialOfferDto>("catalog/specialoffers", updateSpecialOfferDto);
+        await _httpClient.PutAsJsonAsync<UpdateSpecialOfferDto>("specialoffers", updateSpecialOfferDto);
     }
 }

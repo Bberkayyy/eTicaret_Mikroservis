@@ -13,30 +13,30 @@ public class BrandService : IBrandService
 
     public async Task CreateBrandAsync(CreateBrandDto createBrandDto)
     {
-        await _httpClient.PostAsJsonAsync<CreateBrandDto>("catalog/brands", createBrandDto);
+        await _httpClient.PostAsJsonAsync<CreateBrandDto>("brands", createBrandDto);
     }
 
     public async Task DeleteBrandAsync(string id)
     {
-        await _httpClient.DeleteAsync("catalog/brands?id=" + id);
+        await _httpClient.DeleteAsync("brands?id=" + id);
     }
 
     public async Task<List<ResultBrandDto>> GetAllBrandAsync()
     {
-        HttpResponseMessage responseMessage = await _httpClient.GetAsync("catalog/brands");
+        HttpResponseMessage responseMessage = await _httpClient.GetAsync("brands");
         List<ResultBrandDto>? values = await responseMessage.Content.ReadFromJsonAsync<List<ResultBrandDto>>();
         return values;
     }
 
     public async Task<UpdateBrandDto> GetBrandForUpdateAsync(string id)
     {
-        HttpResponseMessage responseMessage = await _httpClient.GetAsync("catalog/brands/" + id);
+        HttpResponseMessage responseMessage = await _httpClient.GetAsync("brands/" + id);
         UpdateBrandDto? value = await responseMessage.Content.ReadFromJsonAsync<UpdateBrandDto>();
         return value;
     }
 
     public async Task UpdateBrandAsync(UpdateBrandDto updateBrandDto)
     {
-        await _httpClient.PutAsJsonAsync<UpdateBrandDto>("catalog/brands", updateBrandDto);
+        await _httpClient.PutAsJsonAsync<UpdateBrandDto>("brands", updateBrandDto);
     }
 }

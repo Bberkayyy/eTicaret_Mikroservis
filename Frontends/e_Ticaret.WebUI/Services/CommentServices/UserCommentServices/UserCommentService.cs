@@ -13,37 +13,37 @@ public class UserCommentService : IUserCommentService
 
     public async Task CreateUserCommentAsync(CreateUserCommentDto createUserCommentDto)
     {
-        await _httpClient.PostAsJsonAsync("comment/comments", createUserCommentDto);
+        await _httpClient.PostAsJsonAsync("comments", createUserCommentDto);
     }
 
     public async Task DeleteUserCommentAsync(string id)
     {
-        await _httpClient.DeleteAsync("comment/comments?id=" + id);
+        await _httpClient.DeleteAsync("comments?id=" + id);
     }
 
     public async Task<List<ResultUserCommentDto>> GetAllUserCommentAsync()
     {
-        HttpResponseMessage responseMessage = await _httpClient.GetAsync("comment/comments");
+        HttpResponseMessage responseMessage = await _httpClient.GetAsync("comments");
         List<ResultUserCommentDto>? values = await responseMessage.Content.ReadFromJsonAsync<List<ResultUserCommentDto>>();
         return values;
     }
 
     public async Task<UpdateUserCommentDto> GetUserCommentForUpdateAsync(string id)
     {
-        HttpResponseMessage responseMessage = await _httpClient.GetAsync("comment/comments/" + id);
+        HttpResponseMessage responseMessage = await _httpClient.GetAsync("comments/" + id);
         UpdateUserCommentDto? values = await responseMessage.Content.ReadFromJsonAsync<UpdateUserCommentDto>();
         return values;
     }
 
     public async Task<List<ResultUserCommentDto>> GetUserCommentsByProductIdAsync(string productId)
     {
-        HttpResponseMessage responseMessage = await _httpClient.GetAsync("comment/comments/commentlistbyproductid?id=" + productId);
+        HttpResponseMessage responseMessage = await _httpClient.GetAsync("comments/commentlistbyproductid?id=" + productId);
         List<ResultUserCommentDto>? values = await responseMessage.Content.ReadFromJsonAsync<List<ResultUserCommentDto>>();
         return values;
     }
 
     public async Task UpdateUserCommentAsync(UpdateUserCommentDto updateUserCommentDto)
     {
-        await _httpClient.PutAsJsonAsync("comment/comments", updateUserCommentDto);
+        await _httpClient.PutAsJsonAsync("comments", updateUserCommentDto);
     }
 }

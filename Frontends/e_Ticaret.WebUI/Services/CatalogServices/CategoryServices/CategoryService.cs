@@ -14,17 +14,17 @@ public class CategoryService : ICategoryService
 
     public async Task CreateCategoryAsync(CreateCategoryDto createCategoryDto)
     {
-        await _httpClient.PostAsJsonAsync<CreateCategoryDto>("catalog/categories", createCategoryDto);
+        await _httpClient.PostAsJsonAsync<CreateCategoryDto>("categories", createCategoryDto);
     }
 
     public async Task DeleteCategoryAsync(string id)
     {
-        await _httpClient.DeleteAsync("catalog/categories?id=" + id);
+        await _httpClient.DeleteAsync("categories?id=" + id);
     }
 
     public async Task<List<ResultCategoryDto>> GetAllCategoryAsync()
     {
-        HttpResponseMessage responseMessage = await _httpClient.GetAsync("catalog/categories");
+        HttpResponseMessage responseMessage = await _httpClient.GetAsync("categories");
         string jsonData = await responseMessage.Content.ReadAsStringAsync();
         List<ResultCategoryDto>? values = JsonConvert.DeserializeObject<List<ResultCategoryDto>>(jsonData);
         return values;
@@ -32,19 +32,19 @@ public class CategoryService : ICategoryService
 
     public async Task<UpdateCategoryDto> GetCategoryForUpdateAsync(string id)
     {
-        HttpResponseMessage responseMessage = await _httpClient.GetAsync("catalog/categories/" + id);
+        HttpResponseMessage responseMessage = await _httpClient.GetAsync("categories/" + id);
         UpdateCategoryDto? value = await responseMessage.Content.ReadFromJsonAsync<UpdateCategoryDto>();
         return value;
     }
 
     public async Task UpdateCategoryAsync(UpdateCategoryDto updateCategoryDto)
     {
-        await _httpClient.PutAsJsonAsync<UpdateCategoryDto>("catalog/categories", updateCategoryDto);
+        await _httpClient.PutAsJsonAsync<UpdateCategoryDto>("categories", updateCategoryDto);
     }
 
     public async Task<GetCategoryByIdDto> GetCategoryById(string id)
     {
-        HttpResponseMessage responseMessage = await _httpClient.GetAsync("catalog/categories/" + id);
+        HttpResponseMessage responseMessage = await _httpClient.GetAsync("categories/" + id);
         GetCategoryByIdDto? value = await responseMessage.Content.ReadFromJsonAsync<GetCategoryByIdDto>();
         return value;
     }
