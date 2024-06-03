@@ -1,4 +1,5 @@
-﻿using e_Ticaret.WebUIDtos.IdentityDtos.RegisterDtos;
+﻿using e_Ticaret.WebUI.Services.IdentityServices;
+using e_Ticaret.WebUIDtos.IdentityDtos.RegisterDtos;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System.Text;
@@ -7,11 +8,11 @@ namespace e_Ticaret.WebUI.Controllers;
 
 public class RegisterController : Controller
 {
-    private readonly IHttpClientFactory _httpClientFactory;
+    private readonly IRegisterService _registerService;
 
-    public RegisterController(IHttpClientFactory httpClientFactory)
+    public RegisterController(IRegisterService registerService)
     {
-        _httpClientFactory = httpClientFactory;
+        _registerService = registerService;
     }
     [HttpGet]
     public IActionResult RegisterForm()
@@ -23,14 +24,8 @@ public class RegisterController : Controller
     {
         if (createRegisterDto.Password == createRegisterDto.ConfirmPassword)
         {
-            HttpClient client = _httpClientFactory.CreateClient();
-            string jsonData = JsonConvert.SerializeObject(createRegisterDto);
-            StringContent content = new(jsonData, Encoding.UTF8, "application/json");
-            HttpResponseMessage responseMessage = await client.PostAsync("http://localhost:5001/api/registers", content);
-            if (responseMessage.IsSuccessStatusCode)
-            {
-                return RedirectToAction("LoginForm", "Login");
-            }
+            await _registerService.SignUp(createRegisterDto);
+            return RedirectToAction("LoginForm", "Login");
         }
         return View();
     }

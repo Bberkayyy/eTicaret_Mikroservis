@@ -13,6 +13,7 @@ using e_Ticaret.WebUI.Services.CatalogServices.ServiceServices;
 using e_Ticaret.WebUI.Services.CatalogServices.SpecialOfferServices;
 using e_Ticaret.WebUI.Services.CommentServices.UserCommentServices;
 using e_Ticaret.WebUI.Services.Concrete;
+using e_Ticaret.WebUI.Services.IdentityServices;
 using e_Ticaret.WebUI.Settings;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -59,6 +60,11 @@ public static class UiDependencies
         {
             opt.BaseAddress = new Uri(values.IdentityServerUrl);
         }).AddHttpMessageHandler<ResourceOwnerPasswordTokenHandler>();
+
+        services.AddHttpClient<IRegisterService, RegisterService>(opt =>
+        {
+            opt.BaseAddress = new Uri(values.IdentityServerUrl);
+        }).AddHttpMessageHandler<ClientCredentialTokenHandler>();
 
         services.AddHttpClient<ICategoryService, CategoryService>(opt =>
         {
