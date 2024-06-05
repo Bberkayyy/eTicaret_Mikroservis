@@ -1,5 +1,6 @@
 ﻿using e_Ticaret.WebUI.Handlers;
 using e_Ticaret.WebUI.Services.Abstract;
+using e_Ticaret.WebUI.Services.BasketServices;
 using e_Ticaret.WebUI.Services.CatalogServices.AboutServices;
 using e_Ticaret.WebUI.Services.CatalogServices.BrandServices;
 using e_Ticaret.WebUI.Services.CatalogServices.CategoryServices;
@@ -59,6 +60,11 @@ public static class UiDependencies
         services.AddHttpClient<IUserService, UserService>(opt =>
         {
             opt.BaseAddress = new Uri(values.IdentityServerUrl);
+        }).AddHttpMessageHandler<ResourceOwnerPasswordTokenHandler>();
+
+        services.AddHttpClient<IBasketService, BasketService>(opt =>
+        {
+            opt.BaseAddress = new Uri($"{values.OcelotUrl}/{values.Basket.Path}");
         }).AddHttpMessageHandler<ResourceOwnerPasswordTokenHandler>();
 
         services.AddHttpClient<IRegisterService, RegisterService>(opt =>

@@ -22,11 +22,25 @@ public class BasketService : IBasketService
     public async Task<BasketTotalDto> GetBasket(string userId)
     {
         RedisValue existBasket = await _redisService.GetDb().StringGetAsync(userId);
+        if (existBasket.IsNullOrEmpty)
+        {
+            BasketTotalDto newBasket = new()
+            {
+                UserId = userId,
+                BasketItems = new List<BasketItemsDto>(),
+                TotalPrice = 0,
+            };
+            return newBasket;
+        }
         return JsonSerializer.Deserialize<BasketTotalDto>(existBasket);
     }
 
     public async Task SaveBasket(BasketTotalDto basketTotalDto)
     {
+        if (basketTotalDto.BasketItems is null || !basketTotalDto.BasketItems.Any())
+            basketTotalDto.TotalPrice = 0;
+        else
+            basketTotalDto.TotalPrice = basketTotalDto.BasketItems.Sum(x => x.Quantity * x.UnitPrice);
         await _redisService.GetDb().StringSetAsync(basketTotalDto.UserId, JsonSerializer.Serialize(basketTotalDto));
     }
 }
