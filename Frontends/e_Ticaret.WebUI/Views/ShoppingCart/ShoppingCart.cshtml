@@ -19,7 +19,7 @@
         @await Component.InvokeAsync("_ShoppingCartProductListComponentPartial")
         <div class="col-lg-4">
             @await Component.InvokeAsync("_ShoppingCartDiscountCouponComponentPartial")
-            @await Component.InvokeAsync("_ShoppingCartCartSummaryComponentPartial")           
+            @await Component.InvokeAsync("_ShoppingCartCartSummaryComponentPartial", new { couponRate = ViewBag.CouponRate })
         </div>
     </div>
 </div>

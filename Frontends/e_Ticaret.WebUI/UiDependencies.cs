@@ -14,6 +14,7 @@ using e_Ticaret.WebUI.Services.CatalogServices.ServiceServices;
 using e_Ticaret.WebUI.Services.CatalogServices.SpecialOfferServices;
 using e_Ticaret.WebUI.Services.CommentServices.UserCommentServices;
 using e_Ticaret.WebUI.Services.Concrete;
+using e_Ticaret.WebUI.Services.DiscountServices.DiscountCouponServices;
 using e_Ticaret.WebUI.Services.IdentityServices;
 using e_Ticaret.WebUI.Settings;
 using Microsoft.AspNetCore.Authentication.Cookies;
@@ -65,6 +66,11 @@ public static class UiDependencies
         services.AddHttpClient<IBasketService, BasketService>(opt =>
         {
             opt.BaseAddress = new Uri($"{values.OcelotUrl}/{values.Basket.Path}");
+        }).AddHttpMessageHandler<ResourceOwnerPasswordTokenHandler>();
+
+        services.AddHttpClient<IDiscountCouponService, DiscountCouponService>(opt =>
+        {
+            opt.BaseAddress = new Uri($"{values.OcelotUrl}/{values.Discount.Path}");
         }).AddHttpMessageHandler<ResourceOwnerPasswordTokenHandler>();
 
         services.AddHttpClient<IRegisterService, RegisterService>(opt =>

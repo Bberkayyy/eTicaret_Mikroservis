@@ -17,8 +17,9 @@ public class ShoppingCartController : Controller
         _productService = productService;
     }
 
-    public IActionResult ShoppingCart()
+    public IActionResult ShoppingCart(int couponRate)
     {
+        ViewBag.CouponRate = couponRate;
         return View();
     }
     public async Task<IActionResult> AddToBasket(string id)
