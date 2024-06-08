@@ -1,6 +1,7 @@
 ﻿using e_Ticaret.Order.Application.Features.CQRS.Results.AddressResults;
 using e_Ticaret.Order.Application.Interfaces;
 using e_Ticaret.Order.Domain.Entities;
+using System.Linq;
 
 namespace e_Ticaret.Order.Application.Features.CQRS.Handlers.AddressHandlers;
 
@@ -19,9 +20,16 @@ public class GetAllAddressQueryHandler
         {
             Id = x.Id,
             UserId = x.UserId,
-            City = x.City,
-            Detail = x.Detail,
+            FirstName = x.FirstName,
+            LastName = x.LastName,
+            Email = x.Email,
+            Phone = x.Phone,
             District = x.District,
+            City = x.City,
+            Country = x.Country,
+            PostCode = x.PostCode,
+            Detail = x.Detail,
+            Detail2 = x.Detail2,
         }).ToList();
     }
 }

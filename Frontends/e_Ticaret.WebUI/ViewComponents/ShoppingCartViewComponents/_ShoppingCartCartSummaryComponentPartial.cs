@@ -13,10 +13,9 @@ public class _ShoppingCartCartSummaryComponentPartial : ViewComponent
         _basketService = basketService;
     }
 
-    public async Task<IViewComponentResult> InvokeAsync(int couponRate)
+    public async Task<IViewComponentResult> InvokeAsync()
     {
         BasketTotalDto value = await _basketService.GetBasket();
-        ViewBag.CouponRate = couponRate;
         return View(value);
     }
 }

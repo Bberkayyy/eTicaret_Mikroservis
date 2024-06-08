@@ -1,0 +1,39 @@
+﻿@model BasketTotalDto
+<h5 class="section-title position-relative text-uppercase mb-3"><span class="bg-secondary pr-3">Sipariş Özeti</span></h5>
+<div class="bg-light p-30 mb-5">
+    <div class="border-bottom">
+        <h6 class="mb-3">Ürünler</h6>
+        @foreach (var item in Model.BasketItems)
+        {
+            <div class="d-flex justify-content-between">
+                <p>@item.ProductName</p>
+                <p>@item.Quantity adet - @item.UnitPrice ₺  => @(item.UnitPrice * item.Quantity) ₺</p>
+            </div>
+        }
+    </div>
+    <div class="border-bottom pt-3 pb-2">
+        <div class="d-flex justify-content-between mb-3">
+            <h6>Sepet Tutarı</h6>
+            <h6>@(Model.TotalPrice - Model.TotalPrice / 100 * Model.DiscountCouponRate) ₺</h6>
+        </div>
+        <div class="d-flex justify-content-between">
+            <h6 class="font-weight-medium">Kargo Ücreti</h6>
+            <h6 class="font-weight-medium">@(Model.BasketItems.Any() && Model.TotalPrice < 500 ? 150 : 0) ₺</h6>
+        </div>
+    </div>
+    <div class="pt-2">
+        <div class="d-flex justify-content-between mt-2">
+            <h5>Toplam Ücret</h5>
+            @if (Model.DiscountCouponRate != 0)
+            {
+                <h5>
+                    @(Model.TotalPrice - (Model.TotalPrice / 100 * Model.DiscountCouponRate) + (Model.BasketItems.Any() && Model.TotalPrice < 500 ? 150 : 0)) ₺
+                </h5>
+            }
+            else
+            {
+                <h5>@(Model.TotalPrice + (Model.BasketItems.Any() && Model.TotalPrice < 500 ? 150 : 0)) ₺</h5>
+            }
+        </div>
+    </div>
+</div>

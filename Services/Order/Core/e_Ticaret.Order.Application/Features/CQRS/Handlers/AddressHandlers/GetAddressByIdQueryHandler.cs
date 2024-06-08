@@ -20,9 +20,16 @@ public class GetAddressByIdQueryHandler
         {
             Id = values.Id,
             UserId = values.UserId,
-            City = values.City,
-            Detail = values.Detail,
+            FirstName = values.FirstName,
+            LastName = values.LastName,
+            Email = values.Email,
+            Phone = values.Phone,
             District = values.District,
+            City = values.City,
+            Country = values.Country,
+            PostCode = values.PostCode,
+            Detail = values.Detail,
+            Detail2 = values.Detail2,
         };
     }
 }

@@ -1,7 +1,6 @@
 ﻿@model BasketTotalDto
 @{
     decimal kargoUcreti = 0;
-    int couponRate = ViewBag.CouponRate;
     if (Model.BasketItems.Any() && Model.TotalPrice < 500)
         kargoUcreti = 150;
 }
@@ -12,11 +11,11 @@
             <h6>Ürün Toplamı</h6>
             <h6>@Model.TotalPrice ₺</h6>
         </div>
-        @if (couponRate != 0)
+        @if (Model.DiscountCouponRate != 0)
         {
             <div class="d-flex justify-content-between mb-3">
                 <h6>Kupon Oranı</h6>
-                <h6>@couponRate</h6>
+                <h6>% @Model.DiscountCouponRate</h6>
             </div>
         }
         <div class="d-flex justify-content-between">
@@ -27,10 +26,10 @@
     <div class="pt-2">
         <div class="d-flex justify-content-between mt-2">
             <h5>Toplam Ücret</h5>
-            @if (couponRate != 0)
+            @if (Model.DiscountCouponRate != 0)
             {
                 <h5>
-                    <del>@(Model.TotalPrice + kargoUcreti) ₺</del> - @(Model.TotalPrice - (Model.TotalPrice / 100 * couponRate) + kargoUcreti) ₺
+                    <del>@((Model.TotalPrice) + kargoUcreti) ₺</del> - @(Model.TotalPrice - (Model.TotalPrice / 100 * Model.DiscountCouponRate) + kargoUcreti) ₺
                 </h5>
             }
             else
@@ -39,6 +38,6 @@
             }
 
         </div>
-        <button class="btn btn-block btn-primary font-weight-bold my-3 py-3">Ödeme Sayfasına Git</button>
+        <a href="/order/index/" class="btn btn-block btn-primary font-weight-bold my-3 py-3">Ödeme Sayfasına Git</a>
     </div>
 </div>
