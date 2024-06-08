@@ -13,4 +13,6 @@ public class BasketTotalDto
     public int DiscountCouponRate { get; set; }
     public List<BasketItemsDto> BasketItems { get; set; }
     public decimal TotalPrice { get => BasketItems.Sum(x => x.UnitPrice * x.Quantity); }
+    public decimal DiscountAmount { get; set; }
+    public decimal AfterDiscountTotalPrice { get; set; }
 }

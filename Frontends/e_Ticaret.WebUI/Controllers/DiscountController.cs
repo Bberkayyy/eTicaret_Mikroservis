@@ -20,10 +20,11 @@ public class DiscountController : Controller
     public async Task<IActionResult> ConfirmCoupon(ConfirmCouponDto couponCode)
     {
         GetDiscountCouponDetailByCode value = await _discountCouponService.GetDiscountCoupon(couponCode.Code);
-        int couponRate = value.Rate;
         BasketTotalDto basket = await _basketService.GetBasket();
-        basket.DiscountCouponRate = couponRate;
+        basket.DiscountCouponRate = value.Rate;
         basket.DiscountCouponCode = value.Code;
+        basket.DiscountAmount = basket.TotalPrice / 100 * value.Rate;
+        basket.AfterDiscountTotalPrice = basket.TotalPrice - basket.DiscountAmount;
         await _basketService.SaveBasket(basket);
         return RedirectToAction("shoppingcart", "shoppingcart");
     }

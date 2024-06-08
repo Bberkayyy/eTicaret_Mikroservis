@@ -17,10 +17,14 @@
                 <h6>Kupon Oranı</h6>
                 <h6>% @Model.DiscountCouponRate</h6>
             </div>
+            <div class="d-flex justify-content-between mb-3">
+                <h6>İndirim Tutarı</h6>
+                <h6>@Model.DiscountAmount ₺</h6>
+            </div>
         }
         <div class="d-flex justify-content-between">
             <h6 class="font-weight-medium">Kargo Ücreti</h6>
-            <h6 class="font-weight-medium">@kargoUcreti</h6>
+            <h6 class="font-weight-medium">@kargoUcreti ₺</h6>
         </div>
     </div>
     <div class="pt-2">
@@ -29,7 +33,7 @@
             @if (Model.DiscountCouponRate != 0)
             {
                 <h5>
-                    <del>@((Model.TotalPrice) + kargoUcreti) ₺</del> - @(Model.TotalPrice - (Model.TotalPrice / 100 * Model.DiscountCouponRate) + kargoUcreti) ₺
+                    <del>@((Model.TotalPrice) + kargoUcreti) ₺</del> - @(Model.AfterDiscountTotalPrice + kargoUcreti) ₺
                 </h5>
             }
             else
