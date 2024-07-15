@@ -9,6 +9,7 @@ using e_Ticaret.Catalog.Services.ProductImageServices;
 using e_Ticaret.Catalog.Services.ProductServices;
 using e_Ticaret.Catalog.Services.ServiceServices;
 using e_Ticaret.Catalog.Services.SpecialOfferServices;
+using e_Ticaret.Catalog.Services.StatisticServices;
 using e_Ticaret.Catalog.Settings;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
@@ -39,6 +40,7 @@ public static class CatalogDependencies
         services.AddScoped<IBrandService, BrandManager>();
         services.AddScoped<IAboutService, AboutManager>();
         services.AddScoped<IContactService, ContactManager>();
+        services.AddScoped<IStatisticService, StatisticService>();
 
         services.AddAutoMapper(Assembly.GetExecutingAssembly());
 

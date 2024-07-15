@@ -24,6 +24,12 @@ public class OrderingsController : ControllerBase
         List<GetAllOrderingQueryResult> values = await _mediator.Send(new GetAllOrderingQuery());
         return Ok(values);
     }
+    [HttpGet("getbyuserid")]
+    public async Task<IActionResult> GetAllByUserId(string id)
+    {
+        List<GetOrderingByUserIdQueryResult> values = await _mediator.Send(new GetOrderingByUserIdQuery(id));
+        return Ok(values);
+    }
     [HttpGet("{id}")]
     public async Task<IActionResult> GetOrdering(int id)
     {

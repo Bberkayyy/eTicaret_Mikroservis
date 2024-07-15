@@ -1,8 +1,11 @@
-﻿using e_Ticaret.IdentityServer.Models;
+﻿using e_Ticaret.IdentityServer.Dtos;
+using e_Ticaret.IdentityServer.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
@@ -36,5 +39,12 @@ public class UsersController : ControllerBase
             Email = user.Email,
             Username = user.UserName
         });
+    }
+    [HttpGet("getallusers")]
+    public async Task<IActionResult> GetAllUsers()
+    {
+        List<ApplicationUser> users = await _userManager.Users.ToListAsync();
+        List<GetAllUsersResponseDto> response = users.Select(x => GetAllUsersResponseDto.ConvertToResponse(x)).ToList();
+        return Ok(response);
     }
 }
