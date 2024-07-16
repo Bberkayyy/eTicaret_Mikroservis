@@ -17,6 +17,7 @@ using e_Ticaret.WebUI.Services.CommentServices.UserCommentServices;
 using e_Ticaret.WebUI.Services.Concrete;
 using e_Ticaret.WebUI.Services.DiscountServices.DiscountCouponServices;
 using e_Ticaret.WebUI.Services.IdentityServices;
+using e_Ticaret.WebUI.Services.MessageServices;
 using e_Ticaret.WebUI.Services.OrderServices.AddressServices;
 using e_Ticaret.WebUI.Services.OrderServices.OrderingServices;
 using e_Ticaret.WebUI.Services.StatisticServices.CatalogStatisticServices;
@@ -78,6 +79,11 @@ public static class UiDependencies
         services.AddHttpClient<ICatalogStatisticService, CatalogStatisticService>(opt =>
         {
             opt.BaseAddress = new Uri($"{values.OcelotUrl}/{values.Catalog.Path}");
+        }).AddHttpMessageHandler<ResourceOwnerPasswordTokenHandler>();
+
+        services.AddHttpClient<IMessageService, MessageService>(opt =>
+        {
+            opt.BaseAddress = new Uri($"{values.OcelotUrl}/{values.Message.Path}");
         }).AddHttpMessageHandler<ResourceOwnerPasswordTokenHandler>();
 
         services.AddHttpClient<ICommentStatisticService, CommentStatisticService>(opt =>
