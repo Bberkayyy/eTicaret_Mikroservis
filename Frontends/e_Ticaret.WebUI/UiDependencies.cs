@@ -23,6 +23,7 @@ using e_Ticaret.WebUI.Services.OrderServices.OrderingServices;
 using e_Ticaret.WebUI.Services.StatisticServices.CatalogStatisticServices;
 using e_Ticaret.WebUI.Services.StatisticServices.CommentStatisticServices;
 using e_Ticaret.WebUI.Services.StatisticServices.DiscountStatisticServices;
+using e_Ticaret.WebUI.Services.StatisticServices.MessageStatisticServices;
 using e_Ticaret.WebUI.Services.StatisticServices.UserStatisticServices;
 using e_Ticaret.WebUI.Settings;
 using Microsoft.AspNetCore.Authentication.Cookies;
@@ -79,6 +80,11 @@ public static class UiDependencies
         services.AddHttpClient<ICatalogStatisticService, CatalogStatisticService>(opt =>
         {
             opt.BaseAddress = new Uri($"{values.OcelotUrl}/{values.Catalog.Path}");
+        }).AddHttpMessageHandler<ResourceOwnerPasswordTokenHandler>();
+
+        services.AddHttpClient<IMessageStatisticService, MessageStatisticService>(opt =>
+        {
+            opt.BaseAddress = new Uri($"{values.OcelotUrl}/{values.Message.Path}");
         }).AddHttpMessageHandler<ResourceOwnerPasswordTokenHandler>();
 
         services.AddHttpClient<IMessageService, MessageService>(opt =>

@@ -1,6 +1,7 @@
 ﻿using e_Ticaret.WebUI.Services.StatisticServices.CatalogStatisticServices;
 using e_Ticaret.WebUI.Services.StatisticServices.CommentStatisticServices;
 using e_Ticaret.WebUI.Services.StatisticServices.DiscountStatisticServices;
+using e_Ticaret.WebUI.Services.StatisticServices.MessageStatisticServices;
 using e_Ticaret.WebUI.Services.StatisticServices.UserStatisticServices;
 using Microsoft.AspNetCore.Mvc;
 
@@ -14,13 +15,15 @@ public class StatisticController : Controller
     private readonly IUserStatisticService _userStatisticService;
     private readonly ICommentStatisticService _commentStatisticService;
     private readonly IDiscountStatisticService _discountStatisticService;
+    private readonly IMessageStatisticService _messageStatisticService;
 
-    public StatisticController(ICatalogStatisticService catalogStatisticService, IUserStatisticService userStatisticService, ICommentStatisticService commentStatisticService, IDiscountStatisticService discountStatisticService)
+    public StatisticController(ICatalogStatisticService catalogStatisticService, IUserStatisticService userStatisticService, ICommentStatisticService commentStatisticService, IDiscountStatisticService discountStatisticService, IMessageStatisticService messageStatisticService)
     {
         _catalogStatisticService = catalogStatisticService;
         _userStatisticService = userStatisticService;
         _commentStatisticService = commentStatisticService;
         _discountStatisticService = discountStatisticService;
+        _messageStatisticService = messageStatisticService;
     }
 
     [Route("index")]
@@ -34,6 +37,8 @@ public class StatisticController : Controller
         ViewBag.productNameOfMinPriceProduct = await _catalogStatisticService.GetProductNameOfMinPriceProduct();
 
         ViewBag.userCount = await _userStatisticService.GetUserCount();
+
+        ViewBag.messageCount = await _messageStatisticService.GetMessageCount();
 
         ViewBag.discountCouponCount = await _discountStatisticService.GetDiscountCouponCount();
 

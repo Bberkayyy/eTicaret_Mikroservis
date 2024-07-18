@@ -1,5 +1,6 @@
 ﻿using e_Ticaret.Message.DAL.Context;
 using e_Ticaret.Message.Services;
+using e_Ticaret.Message.Services.StatisticServices;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
@@ -12,6 +13,7 @@ public static class MessageDependencies
     {
         services.AddDbContext<MessageContext>(opt => opt.UseNpgsql(configuration.GetConnectionString("DefaultConnection")));
         services.AddScoped<IUserMessageService, UserMessageService>();
+        services.AddScoped<IStatisticService, StatisticService>();
         services.AddAutoMapper(Assembly.GetExecutingAssembly());
         services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(opt =>
         {
