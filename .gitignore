@@ -361,3 +361,8 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+
+# Other patterns in .gitignore
+
+# Add the path to the sensitive file
+Services/Image/e_Ticaret.Image/eticaretmikroservis-1fd004160847.json
